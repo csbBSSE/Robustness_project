@@ -18,22 +18,22 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles5/") if isfile(joi
 import histarrows as histarrows
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'25'})
 
 jsdarr=[]
 coords = []
-
+racarr = []
 for i in range(len(topofiles)):
     
     try:
          racprob=np.loadtxt("racdata/{}_racipe_probfull_processed.txt".format(topofiles[i]))
          racarr=racprob
     except:
+         continue
          pass
     
     boolprob=np.loadtxt("booldata/{}_ising_probfull.txt".format(topofiles[i]))
     boolarr=boolprob.T[1]
-
     jsd=jensenshannon(boolarr,racarr,2)
     jsdarr.append(jsd)
     if(topofiles[i][0]!='r'):
@@ -53,9 +53,9 @@ colours = ['r']
 coords = [0.1396]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 25)
-plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 25)
-plt.title("Random Networks (Size 5): JSD Distribution", fontweight="bold", c = '0.3' ) 
+plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 30)
+plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 30)
+plt.title("Random Networks (Size 5): JSD Distribution", fontweight="bold", c = '0.3' , fontsize = 29)
 
        
 f=r*np.array(plt.rcParams["figure.figsize"])

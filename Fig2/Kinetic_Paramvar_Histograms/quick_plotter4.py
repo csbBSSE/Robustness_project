@@ -23,12 +23,11 @@ jsdarr =[]
 cyclearr=[]
 cyclearr2=[]
 jsdarr2 =[]
+kineticjsd = open("kinetic_jsd.txt", 'r').readlines()
+kineticplast = open("kinetic_plast.txt", 'r').readlines()
+
 
 for i in topofiles:
-    
-    kineticjsd = open("kinetic_jsd.txt", 'r').readlines()
-    kineticplast = open("kinetic_plast.txt", 'r').readlines()
-    
     flag = 0
     plastval = 0
     jsdval = 0
@@ -51,13 +50,7 @@ for i in topofiles:
     
     plastarr.append(plastval)
     jsdarr.append(jsdval)
-    
-    network_name = i
-    graph = metric.networkx_graph(network_name)
-    cycle_stuff = metric.cycle_info(network_name, graph)  
-    cyclearr.append(cycle_stuff[6])
-
-
+   
 
 #-----------------------------------------------------------------------------------------------------------------
 number = 4
@@ -73,8 +66,8 @@ colours = ['r', 'g', 'gold', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
 
-plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3')
-plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3')
+plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3', fontsize = 30)
+plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3', fontsize = 30)
 plt.title("Avg. Fold Change in Plasticity (Kinetic) : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
 
 f=r*np.array(plt.rcParams["figure.figsize"])
@@ -98,8 +91,8 @@ names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
 colours = ['r', 'g', 'gold', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3')
-plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3')
+plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3' , fontsize = 30)
+plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3' , fontsize = 30)
 plt.title("Avg. Parameter Variation JSD Distribution : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
 
 f=r*np.array(plt.rcParams["figure.figsize"])

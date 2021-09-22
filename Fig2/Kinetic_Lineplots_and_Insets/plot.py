@@ -24,11 +24,11 @@ for nn in topofiles:
 	for i in range(len(colours)):
 		plt.figure(2)
 		plt.plot(amplifications, jsd[:, 2 * i], c = colours[i])# , marker = markers[markercount]
-		plt.errorbar(amplifications, jsd[:, 2 * i], yerr = jsd[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0, barsabove = True, capsize = 3)
+		plt.errorbar(amplifications, jsd[:, 2 * i], yerr = jsd[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0,  linewidth = 2,barsabove = True, capsize = 5)
 
 		plt.figure(1)
 		plt.plot(amplifications, plast[:, 2 * i], c = colours[i])# , marker = markers[markercount]
-		plt.errorbar(amplifications, plast[:, 2 * i], yerr = plast[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0, barsabove = True, capsize = 3)
+		plt.errorbar(amplifications, plast[:, 2 * i], yerr = plast[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0, linewidth = 2, barsabove = True, capsize = 5)
 
 	fig = plt.figure(1)
 
@@ -39,17 +39,21 @@ for nn in topofiles:
 	plt.xticks(fontsize= 12*r)
 	plt.yticks(fontsize= 12*r)
 
-	plt.xlabel("Multiplication factor for maximum range",fontsize=12*r, fontweight = "bold", c='0.3')
-	plt.ylabel("Plasticity",fontsize=12*r, fontweight = "bold", c='0.3')
-	plt.title("Parameter Variation Plots ({})".format(nn), fontweight = "bold", c='0.3')
+	plt.xlabel("Multiplication factor for maximum range",fontsize=15*r, fontweight = "bold", c='0.3')
+	plt.ylabel("Plasticity",fontsize=15*r, fontweight = "bold", c='0.3')
+	plt.title("Parameter Variation Plots ({})                        ".format(nn), fontweight = "bold", c='0.3')
 
-	legend = plt.legend(legendarr)
+	legend = plt.legend(legendarr,bbox_to_anchor=(1.3, 1.3))
 	plt.setp(legend.get_texts(), color='0.3',fontsize = 12*r , fontweight="bold" )
 	f=r*np.array(plt.rcParams["figure.figsize"])
 	fig = matplotlib.pyplot.gcf()
 	fig.set_size_inches(f)
-
-	plt.savefig("{}_paramvar_plast.png".format(nn))
+	plt.tight_layout()
+	
+	
+	
+	
+	plt.savefig("{}_paramvar_plast.png".format(nn) , transparent = True)
 	plt.close()
 
 
@@ -60,15 +64,17 @@ for nn in topofiles:
 	plt.xticks(fontsize = 12*r)
 	plt.yticks(fontsize = 12*r)
 
-    
-	plt.xlabel("Multiplication factor for maximum range", fontsize=12*r,  fontweight = "bold", c='0.3')
-	plt.ylabel("JSD from WT", fontsize=12*r, fontweight = "bold", c='0.3')
-	plt.title("Parameter Variation Plots ({})".format(nn), fontweight = "bold", c='0.3')
+	
+	plt.xlabel("Multiplication factor for maximum range", fontsize=15*r,  fontweight = "bold", c='0.3')
+	plt.ylabel("JSD from WT", fontsize=15*r, fontweight = "bold", c='0.3')
+	plt.title("Parameter Variation Plots ({})                          ".format(nn), fontweight = "bold", c='0.3')
 
-	legend = plt.legend(legendarr)
+	legend = plt.legend(legendarr,bbox_to_anchor=(1.3, 1.3))
 	plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
+
 	f=r*np.array(plt.rcParams["figure.figsize"])
 	fig = matplotlib.pyplot.gcf()
 	fig.set_size_inches(f)
-	plt.savefig("{}_paramvar_jsd.png".format(nn))
+	plt.tight_layout()	  
+	plt.savefig("{}_paramvar_jsd.png".format(nn) , transparent = True)
 	plt.close()

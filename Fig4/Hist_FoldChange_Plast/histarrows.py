@@ -24,8 +24,8 @@ def histogram(ax, valarr, coords, names, colours, nbins):
         ycoord = height[ind]
         ax.annotate("",
                 xy=(xcoord ,ycoord), xycoords='data',
-                xytext=(xcoord, ycoord + 2), textcoords='data',
-                arrowprops=dict(arrowstyle="->",color = colours[i], lw = 2,
+                xytext=(xcoord, ycoord + 3), textcoords='data',
+                arrowprops=dict(arrowstyle="->",color = colours[i], lw = 3,
                                 connectionstyle="arc3"),
                 )
     legend_ele = []

@@ -159,7 +159,7 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
     global corrarr
     global corrarrpjsd
     
-    if(x_label == "Fraction of Weighted Feedback Loops"):
+    if(x_label == "Fraction of Weighted Positive Cycles"):
         temp1 = []
         temp2 = []
         for i in range(len(y_arr)):
@@ -241,7 +241,7 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     y_arr = []
                     for i in topofiles:
                         if db_emp[i][emp_index] != -100 and db_met[i][met_index] != -100:
-                            if(x_label_arr[met_index]!="Fraction of Weighted Feedback Loops" ):
+                            if(x_label_arr[met_index]!="Fraction of Weighted Positive Cycles" ):
                                 #print(db_emp[i][emp_index] , db_met[i][met_index] , x_label_arr[met_index])
                                 if np.isfinite(db_emp[i][emp_index]) and np.isfinite(db_met[i][met_index]):
                                     x_arr.append(db_met[i][met_index])
@@ -259,7 +259,7 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     # print(x_arr, y_arr)
                     plotter(x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size, topo_sizearr)                   
 
-x_label_arr = ["Number of Positive Feedback Loops", "Number of Negative Feedback Loops", "Fraction of Positive Cycles", "Fraction of Weighted Feedback Loops"]
+x_label_arr = ["Number of Positive Feedback Loops", "Number of Negative Feedback Loops", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
 y_label_arr = ["Average Perturbation JSD from WT", "Average Fold Change (Plasticity) from WT", "JSD between RACIPE and Cont.", "Kinetic Robustness in Plasticity"]
 dir_arr = ["pjsd", "fchg", "kjsd", "kplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]

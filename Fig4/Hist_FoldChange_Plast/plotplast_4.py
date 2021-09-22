@@ -41,14 +41,14 @@ colours = ['r', 'g', 'gold', 'k']
 coords = [0.770996398,0.848018925,0.782366951,0.790414021]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("Average fold change in Plasticity", fontweight="bold" , c='0.3', fontsize = 25)
-plt.ylabel("Number of Random networks" , fontweight="bold" , c='0.3', fontsize = 25)
-plt.title("Distribution of Average fold change in Plasticity: Size {}".format(number), fontweight="bold" , c='0.3')
+plt.xlabel("Avg. fold change in Plasticity", fontweight="bold" , c='0.3', fontsize = 30)
+plt.ylabel("Number of Random networks" , fontweight="bold" , c='0.3', fontsize = 30)
+plt.title("Distribution of Avg. fold change in Plasticity: Size {}".format(number), fontweight="bold" , c='0.3')
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
-ax.set_ylim([0,26])
+ax.set_ylim([0,28])
 plt.tight_layout()
 
 plt.savefig("plastfoldhist4.jpg", transparent = True)

@@ -43,7 +43,7 @@ constant_node_count 0
 """
 
 tottime = time.time()
-version = 'cont' ###change this to cont or bool as needed
+version = 'bool' ###change this to cont or bool as needed
 
 for i in range(len(topofiles)):
     curnetwork = open("curnetwork.txt", 'w')
@@ -61,3 +61,8 @@ for i in range(len(topofiles)):
     curnetwork.close()
     
     os.system("python3 racvsbool2_error.py")
+    
+    for j in range(1,4):
+        os.remove("output/{}_init_run{}.txt".format(topofiles[i],j))
+        os.remove("output/{}_nss_run{}.txt".format(topofiles[i],j))
+        os.remove("output/{}_ss_run{}.txt".format(topofiles[i],j))

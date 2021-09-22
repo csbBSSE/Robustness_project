@@ -9,7 +9,7 @@ from os.path import isfile, join
 import matplotlib
 import histarrows as histarrows
 
-topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
+topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(join("topofiles4/", f))]
 
 
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
@@ -48,9 +48,9 @@ names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
 colours = ['r', 'g', 'gold', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 25)
-plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 25)
-plt.title("Random Networks (Size 4): JSD Distribution", fontweight="bold", c = '0.3' ) 
+plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 30)
+plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 30)
+plt.title("Random Networks (Size 4): JSD Distribution", fontweight="bold", c = '0.3' ,  fontsize = 30 ) 
 
        
 f=r*np.array(plt.rcParams["figure.figsize"])

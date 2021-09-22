@@ -21,8 +21,8 @@ ax1.set_yticks([])
 
 #plt.clf()
 
-ax2.plot(x1, norm.pdf(x1, -1, stdev), c = 'b', linewidth = 5)
-ax2.plot(x1, norm.pdf(x1, -1, stdev), c = 'r', linewidth = 2)
+ax2.plot(x1, norm.pdf(x1, -1, stdev), c = 'r', linewidth = 5)
+ax2.plot(x1, norm.pdf(x1, -1.02, stdev), c = 'b', linewidth = 5)
 ax2.set_ylim([0.01,1.5])
 ax2.set_xlim([-2,0])
 ax2.set_xticks([])

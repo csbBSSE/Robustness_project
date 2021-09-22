@@ -24,8 +24,8 @@ def histogram(ax, valarr, coords, names, colours, nbins):
         ycoord = height[ind]
         ax.annotate("",
                 xy=(xcoord ,ycoord), xycoords='data',
-                xytext=(xcoord, ycoord + 2), textcoords='data',
-                arrowprops=dict(arrowstyle="->",color = colours[i], lw = 2,
+                xytext=(xcoord, ycoord + 3), textcoords='data',
+                arrowprops=dict(arrowstyle="->",color = colours[i], lw = 3,
                                 connectionstyle="arc3"),
                 )
     legend_ele = []
@@ -33,13 +33,3 @@ def histogram(ax, valarr, coords, names, colours, nbins):
         legend_ele.append(Line2D([0], [0], marker='o', color='w', label=names[i], markerfacecolor=colours[i], markersize=8))
     ax.legend(handles = legend_ele)
 
-'''
-fig,ax = plt.subplots()
-valarr = np.random.normal(0, 1, 100)
-colours = ['r', 'g', 'b', 'k']
-coords = [0.2, 0.3, 0.5, 0.7]
-names = ["GRHL2", "GRHL2", "GRHL2", "GRHL2"]
-nbins = 20
-histogram(ax, valarr, coords, names, colours, nbins)
-plt.savefig("histname.png")
-'''

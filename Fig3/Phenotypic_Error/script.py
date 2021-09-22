@@ -19,8 +19,8 @@ for i in topofiles:
     bool = np.loadtxt("{}_percerror_bool.txt".format(i))[2:]
     rac = np.loadtxt("{}_percerror_rac.txt".format(i))
     print(bool[:, 0])
-    ax.plot(bool[:, 0]/100, bool[:, 1], 'o:', c = colours[colcnt])
-    ax.plot(rac[:, 0], rac[:, 1], 'o-', c = colours[colcnt])
+    ax.plot(bool[:, 0]/100, bool[:, 1], 'o:', c = colours[colcnt] , linewidth = 5 , markersize = 8)
+    ax.plot(rac[:, 0], rac[:, 1], 'o-', c = colours[colcnt] , linewidth = 5, markersize = 8)
     colcnt += 1
 
 
@@ -35,15 +35,15 @@ from matplotlib.ticker import ScalarFormatter
 import matplotlib.ticker as ticker
 ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda y,pos: ('{{:.{:1d}f}}'.format(int(np.maximum(-np.log10(y),0)))).format(y)))
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y,pos: ('{{:.{:1d}f}}'.format(int(np.maximum(-np.log10(y),0)))).format(y)))
-ax.set_xlabel("Number of RACIPE models")
-ax.set_ylabel("Fraction Error of Phenotypic Distribution")
-ax.set_title("RACIPE vs Continuous Phenotypic Error")
+ax.set_xlabel("Number of RACIPE models", fontsize = 30)
+ax.set_ylabel("Fraction Error", fontsize = 30)
+ax.set_title("RACIPE vs Continuous Phenotypic Error", fontsize = 30)
 
 legend_ele = [Line2D([0], [0], marker='o', color='w', label='GRHL2', markerfacecolor='r', markersize=15),
               Line2D([0], [0], marker='o', color='w', label='OVOL2', markerfacecolor='g', markersize=15),
               Line2D([0], [0], marker='o', color='w', label='OCT4', markerfacecolor='b', markersize=15),
-              Line2D([0], [0], linestyle='-', color='k', label='RACIPE', markerfacecolor='g', markersize=15),
-              Line2D([0], [0], linestyle=':', color='k', label='Continuous', markerfacecolor='g', markersize=15)]
+              Line2D([0], [0], linestyle='-', color='k', linewidth = '5', label='RACIPE', markerfacecolor='g', markersize=15),
+              Line2D([0], [0], linestyle=':', color='k', linewidth = '5', label='Continuous', markerfacecolor='g', markersize=15)]
 ax.legend(handles = legend_ele)
 
 fig.tight_layout()

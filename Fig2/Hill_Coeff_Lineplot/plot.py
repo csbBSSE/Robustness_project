@@ -7,7 +7,7 @@ import time
 from scipy.spatial.distance import jensenshannon
 import matplotlib
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size':'18'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '18', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
 plt.figure(figsize=(11,6))
 
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
@@ -54,6 +54,7 @@ jsdavg = []
 width = 0.4
 sets = 10
 x = np.array([i for i in range(sets)]) * 3
+
 for i in range(len(topofiles)):
     jsdmatrix = np.zeros((sets,3)) # each row is a param range set, cols are runs
     for run in range(3):
@@ -82,22 +83,28 @@ for i in range(len(topofiles)):
     mean = [np.mean(jsdmatrix[p, :]) for p in range(sets)]
     std = [np.std(jsdmatrix[p, :]) for p in range(sets)]
 
-    plt.scatter(x, mean, label = topofiles[i]) # add ", width = width / 2" for bar plots
-    plt.errorbar(x, mean, yerr = std) # , fmt = 'none'
+    #plt.scatter(x, mean, label = topofiles[i] , s = 5) # add ", width = width / 2" for bar plots
+    plt.errorbar(x, mean, yerr = std , linewidth = 2,  ecolor = 'k' ,capsize=5, elinewidth=2,  markeredgewidth=2)  # , fmt = 'none'
     # ADD " + width * i" for bar plots 
 xtickarr = ["{}-{}".format(2 * i + 1, 2 * i + 2) for i in range(0,sets)]
 for i in range(len(xtickarr)):
     if i%2 == 1:
         xtickarr[i] = ''
-plt.legend()
+#plt.legend()
 
-leg = plt.legend(bbox_to_anchor=(0.8,0.78), framealpha = 1.0)
-leg.get_frame().set_edgecolor('k')
-leg.get_frame().set_linewidth(3)
+#leg = plt.legend(bbox_to_anchor=(0.8,0.78), framealpha = 1.0)
+#leg.get_frame().set_edgecolor('k')
+#leg.get_frame().set_linewidth(3)
+plt.text(20, 0.48, 'OVOL2' , c='C3')
+plt.text(20, 0.38, 'OCT4' , c='C2')
+plt.text(20, 0.25, 'GRHL2' , c = 'C1' )
+plt.text(20, 0.19, 'GRHL2wa' , c = 'C0')
 
-plt.xlabel("Hill Coefficient Ranges", fontsize = 18)
-plt.ylabel("JSD from Ising", fontsize = 18)
+plt.xlabel("Hill Coefficient Ranges", fontsize = 20)
+plt.ylabel("JSD from Boolean", fontsize = 20)
+plt.title("JSD on Varying Hill Coefficient  ", fontsize = 20)
+plt.tight_layout()
 plt.ylim([0.18, 0.55])
 plt.xticks(x, xtickarr)
-plt.title("JSD on Varying Hill Coefficient  ")
-plt.savefig('jsdlineplot.png', transparent = True)
+
+plt.savefig('jsdlineplot.png', transparent =False )

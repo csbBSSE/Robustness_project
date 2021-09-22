@@ -22,9 +22,11 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join
 topofiles.sort()
 print(topofiles)
 
-version='cont' # bool / cont
+version='bool' # bool / cont
 Version = version
 
+def FixCase(st):
+    return ' '.join(''.join([w[0].upper(), w[1:].lower()]) for w in st.split())
 
 corrarr= []
 
@@ -52,7 +54,7 @@ for i in range(0, len(topofiles)):
     
     seagraph = sns.regplot(booljsd,racjsd, color ='blue')
     
-    xlabel1 = "JSD b/w Wildtype and Perturbed Network ({})".format(Version)
+    xlabel1 = "JSD b/w Wildtype and Perturbed Network ({})".format(FixCase(Version))
     ylabel1= "JSD b/w Wildtype and Perturbed Network (RACIPE)"
     #title1 = "{}   ρ= {:.3f}   Residual = {:.3f} ".format(topofiles[i],corr, res[0])
     title1 = "{}".format(topofiles[i])

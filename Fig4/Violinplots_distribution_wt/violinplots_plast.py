@@ -41,7 +41,7 @@ matplotlib.rcParams.update({'font.size': 10*r, 'text.color': '0.3', 'axes.labelw
 
 fig, ax = plt.subplots()
 ax.set_aspect(6)
-fig.set_size_inches((2.5, 5))
+fig.set_size_inches((3, 5))
 
 data_matrix = [grhl2_fold]
 

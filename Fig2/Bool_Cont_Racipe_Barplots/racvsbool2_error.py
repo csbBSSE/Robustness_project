@@ -17,7 +17,7 @@ topofiles= os.listdir()
 topofiles.sort()
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
 
-version='cont'    ###change this as need, either cont or bool
+version='bool'    ###change this as need, either cont or bool
 
 
 def FixCase(st):
@@ -192,8 +192,8 @@ if plot_plotterdata:
     
     
     
-    ax.set_xlabel("Stable States")
-    ax.set_ylabel("Frequency")
+    ax.set_xlabel("Stable States" , fontsize = 30)
+    ax.set_ylabel("Frequency", fontsize = 30)
     leg1 = mlines.Line2D([], [], color='red', ls='', marker = 's', label='RACIPE')
     
     if(version == 'cont'):
