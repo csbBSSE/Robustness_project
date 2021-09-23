@@ -14,7 +14,7 @@ sys.path.append('../')
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(join("topofiles4/", f))]
 topofiles.sort()
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 
 plastarr =[]
@@ -62,20 +62,19 @@ fig,ax = plt.subplots()
 valarr = plastarr
 coords = [0.853, 0.873, 0.855, 0.846]
 names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
-colours = ['r', 'g', 'gold', 'k']
+colours = ['r', 'g', 'm', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
 
-plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3', fontsize = 30)
-plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Avg. Fold Change in Plasticity (Kinetic) : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
+plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3')
+plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
+plt.title("Size {}".format(number), fontweight="bold", c = '0.3')
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)    
 plt.tight_layout()         
-plt.savefig("kineticplastavg{}hist.jpg".format(number), transparent = True)
-
+plt.savefig("kineticplastavg{}hist.png".format(number), transparent = True)
 
 
 #-----------------------------------------------------------------------------------------------------------------
@@ -88,18 +87,18 @@ fig,ax = plt.subplots()
 valarr = jsdarr
 coords = [0.062, 0.081, 0.046, 0.0554]
 names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
-colours = ['r', 'g', 'gold', 'k']
+colours = ['r', 'g', 'm', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3' , fontsize = 30)
-plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3' , fontsize = 30)
-plt.title("Avg. Parameter Variation JSD Distribution : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
+plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3')
+plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
+plt.title("Size {}".format(number), fontweight="bold", c = '0.3')
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)    
 plt.tight_layout()        
-plt.savefig("kineticjsdavg{}hist.jpg".format(number), transparent = True)
+plt.savefig("kineticjsdavg{}hist.png".format(number), transparent = True)
 
 
 

@@ -24,13 +24,13 @@ def histogram(ax, valarr, coords, names, colours, nbins):
         ycoord = height[ind]
         ax.annotate("",
                 xy=(xcoord ,ycoord), xycoords='data',
-                xytext=(xcoord, ycoord + 3), textcoords='data',
+                xytext=(xcoord, ycoord + 5), textcoords='data',
                 arrowprops=dict(arrowstyle="->",color = colours[i], lw = 3,
                                 connectionstyle="arc3"),
                 )
     legend_ele = []
     for i in range(num):
-        legend_ele.append(Line2D([0], [0], marker='o', color='w', label=names[i], markerfacecolor=colours[i], markersize=8))
+        legend_ele.append(Line2D([0], [0], marker='o', color='w', label=names[i], markerfacecolor=colours[i], markersize=20))
     ax.legend(handles = legend_ele)
 
 '''

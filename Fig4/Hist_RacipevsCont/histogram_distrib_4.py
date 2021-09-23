@@ -12,7 +12,7 @@ import histarrows as histarrows
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(join("topofiles4/", f))]
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 
 jsdarr=[]
@@ -47,17 +47,17 @@ valarr = jsdarr
 names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
 colours = ['r', 'g', 'gold', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
-
-plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 30)
-plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Random Networks (Size 4): JSD Distribution", fontweight="bold", c = '0.3' ,  fontsize = 30 ) 
+ax.spines['right'].set_visible(False)
+plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
+plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
+#plt.title("Networks (Size 4)", fontweight="bold", c = '0.3' ,  fontsize = 30 ) 
 
        
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)     
 plt.tight_layout()       
-plt.savefig("racboolhist_size4.jpg", transparent = True)
+plt.savefig("racboolhist_size4.png", transparent = True)
 
 
   

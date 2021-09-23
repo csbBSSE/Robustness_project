@@ -15,7 +15,7 @@ import matplotlib
 
 topofiles= os.listdir()
 topofiles.sort()
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'40', 'axes.labelsize':'40', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'40'})
 
 version='bool'    ###change this as need, either cont or bool
 
@@ -192,14 +192,14 @@ if plot_plotterdata:
     
     
     
-    ax.set_xlabel("Stable States" , fontsize = 30)
-    ax.set_ylabel("Frequency", fontsize = 30)
-    leg1 = mlines.Line2D([], [], color='red', ls='', marker = 's', label='RACIPE')
+    ax.set_xlabel("Stable States")
+    ax.set_ylabel("Frequency")
+    leg1 = mlines.Line2D([], [], color='red', ls='', marker = 'o', label='RACIPE', markersize = 20)
     
     if(version == 'cont'):
-        leg2 = mlines.Line2D([], [], color='blue',  ls='', marker = 's',  label='Continuous')
+        leg2 = mlines.Line2D([], [], color='blue',  ls='', marker = 'o',  label='Continuous', markersize = 20)
     else:
-        leg2 = mlines.Line2D([], [], color='blue',  ls='', marker = 's',  label='Boolean')
+        leg2 = mlines.Line2D([], [], color='blue',  ls='', marker = 'o',  label='Boolean', markersize = 20)
 
     plt.legend(handles=[leg1, leg2])
     r= 2
@@ -207,7 +207,7 @@ if plot_plotterdata:
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)    
     plt.tight_layout()
-    plt.savefig("Boolvsracipegraphs/{}_racipeV{}.png".format(network_name,version))
+    plt.savefig("Boolvsracipegraphs/{}_racipeV{}.png".format(network_name,version), transparent = True)
 
     jsdfile=open("{}_jsd.txt".format(version),"a")
     jsdfile.write("{} {}\n".format(network_name,jsd))

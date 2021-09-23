@@ -66,7 +66,7 @@ histarrows.histogram(ax, valarr, coords, names, colours, n_bins)
 
 plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3' , fontsize = 30)
 plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Avg. Fold Change in Plasticity (Kinetic) : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
+plt.title("Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
@@ -91,7 +91,7 @@ histarrows.histogram(ax, valarr, coords, names, colours, n_bins)
 
 plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3' , fontsize = 30)
 plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3' , fontsize = 30)
-plt.title("Avg. Parameter Variation JSD Distribution : Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
+plt.title("Size {}".format(number), fontweight="bold", c = '0.3' , size = 13*r)
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()

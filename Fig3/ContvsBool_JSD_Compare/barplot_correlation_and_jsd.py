@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 import matplotlib
  
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'50', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'33'})
  
 
 xarrno = np.array([0,1,2,3,4])
@@ -28,20 +28,16 @@ yarr42=[
 r = 2
 fig = plt.figure()
 
-matplotlib.rcParams.update({'font.size': 15*r})
-plt.rc('legend',fontsize=10*r) 
 plt.bar(xarrno,yarr41, width = 0.4 ,color='r')
 plt.xticks(xarrno + 0.2 , xarr4 , fontweight="bold" , c='0.3' )
 plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
 plt.xticks(rotation=15)
-plt.xticks(fontsize= 12*r)
-plt.yticks(fontsize=10*r)
-plt.ylabel("Correlation with Racipe Perturbations", fontweight="bold" , c='0.3' )
+plt.ylabel("JSD Correlation with Racipe", fontweight="bold" , c='0.3' )
 plt.xlabel("Networks" ,fontweight="bold" , c='0.3' )
-plt.title("Boolean vs Cont. Correlation with Racipe")
+#plt.title("Boolean vs Cont. Correlation with Racipe")
 
 legend = plt.legend(['Boolean', 'Continuous'] )
-plt.setp(legend.get_texts(), color='0.3',fontsize = 12*r , fontweight="bold" )
+plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
 
 plt.tick_params(
     axis='x',          # changes apply to the x-axis
@@ -57,6 +53,7 @@ axes = plt.gca()
 axes.set_ylim([0,1.3])
 plt.tight_layout()
 plt.savefig("correlation.png", transparent = True)
+plt.close()
 
 ######################
 
@@ -85,20 +82,16 @@ r = 2
 fig = plt.figure()
 
 
-matplotlib.rcParams.update({'font.size': 15*r})
-
 plt.bar(xarrno,yarr41, width = 0.4 ,color='r')
 plt.xticks(xarrno + 0.2 , xarr4,  fontweight="bold" , c='0.3')
 plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
 
-plt.ylabel("JSD from RACIPE",  fontweight="bold" , c='0.3' , fontsize = 30)
-plt.xlabel("Networks", fontweight="bold" , c='0.3', fontsize = 30)
+plt.ylabel("JSD from RACIPE",  fontweight="bold" , c='0.3')
+plt.xlabel("Networks", fontweight="bold" , c='0.3')
 plt.xticks(rotation=15)
-plt.xticks(fontsize= 12*r)
-plt.yticks(fontsize = 10*r)
-plt.title("Boolean vs Cont. JSD")
+#plt.title("Boolean vs Cont. JSD")
 legend = plt.legend(['Boolean', 'Continuous'] )
-plt.setp(legend.get_texts(), color='0.3',fontsize = 10*r , fontweight="bold" )
+plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
 
 plt.tick_params(
     axis='x',          # changes apply to the x-axis

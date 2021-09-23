@@ -37,7 +37,7 @@ for a in data[1:]:
 
 r = 2
 
-matplotlib.rcParams.update({'font.size': 10*r, 'text.color': '0.3', 'axes.labelweight':'bold', 'font.weight': 'bold', 'axes.labelcolor': '0.3', 'axes.titlecolor': '0.3',  'ytick.labelsize': 7*r ,'xtick.color':'0.3', 'ytick.color':'0.3'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'35', 'axes.labelsize':'28', 'xtick.labelsize':'28', 'ytick.labelsize':'25', 'legend.fontsize':'30'})
 
 fig, ax = plt.subplots()
 ax.set_aspect(6)
@@ -56,4 +56,4 @@ plt.yticks(np.arange(0.3,1,0.2))
 ax.set_ylabel("Fold Change")
 plt.tight_layout()
 
-plt.savefig("violinplot_plast_wt.png")
+plt.savefig("violinplot_plast_wt.png", transparent = True)

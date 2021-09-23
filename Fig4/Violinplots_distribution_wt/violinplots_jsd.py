@@ -6,6 +6,8 @@ from os.path import isfile, join
 import matplotlib.pyplot as plt
 import seaborn 
 
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'35', 'axes.labelsize':'28', 'xtick.labelsize':'28', 'ytick.labelsize':'25', 'legend.fontsize':'30'})
+
 
 min_fold = []
 max_fold = []
@@ -27,8 +29,6 @@ grhl2_jsd = np.loadtxt("cont_GRHL2_jsd.txt")
 r = 2
 
 
-matplotlib.rcParams.update({'font.size': 10*r, 'text.color': '0.3', 'axes.labelweight':'bold', 'font.weight': 'bold', 'axes.labelcolor': '0.3', 'axes.titlecolor': '0.3',  'ytick.labelsize': 7*r ,'xtick.color':'0.3', 'ytick.color':'0.3'})
-
 fig, ax = plt.subplots()
 ax.set_aspect(6)
 fig.set_size_inches((3, 5))
@@ -43,9 +43,9 @@ a1 = np.mean(data_matrix[0])
 plt.scatter([0], [a1] , c='k' )
 plt.yticks(np.arange(0,1,0.2))
 #plt.title("Distribution of Avg. Perturbation JSD (GRHL2)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
-ax.set_ylabel("Avg. Perturbation JSD")
+ax.set_ylabel("Perturbation JSD")
 plt.tight_layout()
 
-plt.savefig("violinplot_jsd_wt.png")
+plt.savefig("violinplot_jsd_wt.png", transparent = True)
 
 

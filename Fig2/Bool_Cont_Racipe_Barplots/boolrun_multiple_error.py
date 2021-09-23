@@ -2,6 +2,8 @@ import os
 import time
 from os import listdir
 from os.path import isfile, join
+import sys
+
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 
 import numpy as np

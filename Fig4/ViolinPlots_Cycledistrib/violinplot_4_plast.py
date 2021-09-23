@@ -8,7 +8,7 @@ import matplotlib
 import seaborn
 print('imported modules')
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 topofiles= [splitext(f)[0] for f in listdir("topofiles_plast/") if isfile(join("topofiles_plast/", f))]
 topofiles.sort()
@@ -113,20 +113,21 @@ labels = ["PFL Left", "PFL Right" , "NFL Left" , "NFL Right"]
 r = 2
 fig,ax = plt.subplots()
 ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'])
-ax.set_xticklabels(labels, fontsize = 25)
+ax.set_xticklabels(labels)
 a1 = np.mean(data_matrix[0])
 print(data_matrix[0])
 a2 = np.mean(data_matrix[1])
 a3 = np.mean(data_matrix[2])
 a4 = np.mean(data_matrix[3])
 plt.scatter([0,1,2,3], [a1,a2,a3,a4] , c='k' )
-plt.title("Feedback Loops (Network  Size 4) (Grouped by Fold Change)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
-ax.set_ylabel("Avg. Fold Change in plasticity", fontsize = 27)
+#plt.title("Size 4 (Grouped by Fold Change)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
+
+ax.set_ylabel("No. of Feedback Loops")
 f=2*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
 
-plt.savefig("violinplot_plast.png")
+plt.savefig("violinplot_plast.png", transparent = True)
 
 
 

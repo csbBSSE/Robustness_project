@@ -13,7 +13,7 @@ from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
 import histarrows as histarrows
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'25'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 
 number = 5
@@ -42,14 +42,14 @@ histarrows.histogram(ax, valarr, coords, names, colours, n_bins)
 
 plt.xlabel("Average Perturbation JSD", fontweight="bold", c = '0.3', fontsize = 30)
 plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Perturbation JSD Distribution: Size {}".format(number), fontweight="bold", c = '0.3', fontsize = 30)
+plt.title("Networks (Size {})".format(number), fontweight="bold", c = '0.3', fontsize = 30)
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)            
 plt.tight_layout()
 
-plt.savefig("jsdavg{}hist.jpg".format(number), transparent = True)
+plt.savefig("jsdavg{}hist.png".format(number), transparent = True)
 plt.clf()
 
 

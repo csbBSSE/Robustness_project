@@ -13,9 +13,20 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import seaborn as sns
-
+from matplotlib.lines import Line2D
 
 print('imported modules')
+
+def starfunc(significance):
+    if significance < 0.001:
+        return "***"
+    elif significance < 0.01:
+        return "**"
+    elif significance < 0.05:
+        return "*"
+    else:
+        return ""
+
 def func(X, a , b , c):
     x,y = X
     z = np.zeros(len(x))
@@ -57,7 +68,7 @@ def topofiles_size(topofiles, size):
     return topo_size
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'30', 'axes.labelsize':'30', 'xtick.labelsize':'25', 'ytick.labelsize':'25', 'legend.fontsize':'25'})
 
 
 topofiles= [splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
@@ -186,10 +197,9 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
     r = 2
 
     fig, ax = plt.subplots()
-    matplotlib.rcParams.update({'font.size': 10*r})
 
     import seaborn as sns
-    sns.regplot(x_arr,y_arr,line_kws = {"color": 'r'} , scatter_kws ={"alpha" : 0}  )
+    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'} , scatter_kws ={"alpha" : 0}  )
     ax.lines.pop(0)
     plt.scatter(x_arr,y_arr, c= sizearr)
     plt.ylabel(y_label, fontweight="bold" , c='0.3' )
@@ -210,7 +220,7 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
         title = "Random Networks (Size {})".format(size)
 
     try:
-        pcorr, _ = pearsonr(x_arr,y_arr)
+        pcorr, significance = pearsonr(x_arr,y_arr)
     except:
         print(x_arr, y_arr, x_label, y_label, dir, name, size)
         
@@ -218,13 +228,14 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
     if (size == -1):
         corrarr.append(np.round(pcorr*10000)/10000)
         
-    if (y_label == "Average Perturbation JSD from WT"):
+    if (y_label == "Avg. Perturbation JSD"):
         corrarrpjsd.append(np.round(pcorr*10000)/10000)        
         
 
-    plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
-
-    plt.savefig("plots/{}/{}_coloredsize.jpg".format(dir, name))
+    #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
+    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
+    plt.tight_layout()
+    plt.savefig("plots/{}/{}_coloredsize.png".format(dir, name), transparent = True)
 
     plt.close()
 
@@ -259,8 +270,8 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     # print(x_arr, y_arr)
                     plotter(x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size, topo_sizearr)                   
 
-x_label_arr = ["Number of Positive Feedback Loops", "Number of Negative Feedback Loops", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
-y_label_arr = ["Average Perturbation JSD from WT", "Average Fold Change (Plasticity) from WT", "JSD between RACIPE and Cont.", "Kinetic Robustness in Plasticity"]
+x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
+y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic Robustness in Plasticity"]
 dir_arr = ["pjsd", "fchg", "kjsd", "kplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)

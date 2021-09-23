@@ -17,6 +17,15 @@ from scipy.spatial.distance import jensenshannon
 import seaborn
 print('imported modules')
 
+def starfunc(significance):
+    if significance < 0.001:
+        return "***"
+    elif significance < 0.01:
+        return "**"
+    elif significance < 0.05:
+        return "*"
+    else:
+        return ""
 
 
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
@@ -24,7 +33,7 @@ topofiles.sort()
 
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 print(topofiles)
 ####
@@ -160,32 +169,33 @@ for i in range(len(topofiles)):
     network_name = topofiles[i]
     r = 2
     fig,ax = plt.subplots()
-    matplotlib.rcParams.update({'font.size': 10*r})    
-    pcorr, _ = pearsonr(wfndiffarr , jsd_data)  
-    seaborn.regplot(wfndiffarr, jsd_data , line_kws = {"color": 'r'} )  
-    ax.lines.pop(0)    
+    pcorr, significance = pearsonr(wfndiffarr , jsd_data) 
+    if topofiles[i] == 'GRHL2':
+        print(significance)
+    seaborn.regplot(wfndiffarr, jsd_data , line_kws = {"color": 'b'} )  
+    ax.lines.pop(0)  
+    ax.spines['top'].set_visible(False)
     plt.scatter(wfndiffarr , jsd_data)
-    plt.xlabel("Δ Negative Cycle Sum",fontweight="bold" , c='0.3')
-    plt.ylabel("Plasticity of Perturbed Network",fontweight="bold" , c='0.3')   
-    plt.title("{}".format(network_name),fontweight="bold" , c='0.3' )
+    plt.xlabel("Δ Negative Cycles",fontweight="bold" , c='0.3')
+    plt.ylabel("Plasticity",fontweight="bold" , c='0.3')   
+    plt.title("{}\nPerturbations".format(network_name),fontweight="bold" , c='0.3', x = 0.75, y  = 0.8)
     
-    textstr = r'$\mathrm{ρ}=%.2f$' % (pcorr, )
+    textstr = r'$\mathrm{ρ}=%.3f$' % (pcorr, )
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
-    ax.text(0.10, 0.95, textstr, transform=ax.transAxes, fontsize=25,
+    ax.text(0.10, 0.95, textstr + starfunc(significance), transform=ax.transAxes, fontsize=35,
         verticalalignment='top', bbox=props)
         
     f=r*np.array(plt.rcParams["figure.figsize"])
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)    
-
-    plt.savefig("img/{}_plast_neg.jpg".format(topofiles[i]) )   
+    plt.tight_layout()
+    plt.savefig("img/{}_plast_neg.png".format(topofiles[i]), transparent = True)   
     plt.clf()
     
     
     r = 2
-    fig = plt.figure()
-    matplotlib.rcParams.update({'font.size': 10*r})    
+    fig = plt.figure() 
     
     corrarr1.append(pcorr)
     pcorr, _ = pearsonr(wfndiffarr2 , jsd_data)    
@@ -199,13 +209,13 @@ for i in range(len(topofiles)):
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)        
     
-    plt.savefig("img/{}_plast_weighted_neg.jpg".format(topofiles[i]) )   
+    plt.savefig("img/{}_plast_weighted_neg.png".format(topofiles[i]) )   
     plt.clf()
     corrarr2.append(pcorr)
 
 fig, ax = plt.subplots()   
 r = 2
-matplotlib.rcParams.update({'font.size': 10*r})    
+
     
 
 ax.scatter(corrarr1,corrarr2)
@@ -227,4 +237,4 @@ ax.plot(lims, lims, 'k-', alpha=0.75, zorder=0)
 ax.set_xlim(lims)
 ax.set_ylim(lims)
 
-plt.savefig("img/weightedorno_jsd_neg.jpg")     
+plt.savefig("img/weightedorno_jsd_neg.png", transparent = True)     

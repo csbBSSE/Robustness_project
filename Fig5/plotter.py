@@ -9,12 +9,23 @@ from scipy.stats import pearsonr
 from scipy.spatial.distance import jensenshannon
 import numpy as np
 import scipy as sp
+import scipy as sp
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import seaborn as sns
+from matplotlib.lines import Line2D
 
-print('imported modules')
+def starfunc(significance):
+    if significance < 0.001:
+        return "***"
+    elif significance < 0.01:
+        return "**"
+    elif significance < 0.05:
+        return "*"
+    else:
+        return ""
+
 def func(X, a , b , c):
     x,y = X
     z = np.zeros(len(x))
@@ -54,7 +65,7 @@ def topofiles_size(topofiles, size):
             topo_size.append(i)
     return topo_size
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'axes.labelsize':'25'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'30', 'axes.labelsize':'30', 'xtick.labelsize':'25', 'ytick.labelsize':'25', 'legend.fontsize':'25'})
 
 topofiles= [splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 topofiles.sort()
@@ -181,10 +192,9 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size):
     r = 2
 
     fig, ax = plt.subplots()
-    matplotlib.rcParams.update({'font.size': 10*r})
 
 
-    sns.regplot(x_arr,y_arr,line_kws = {"color": 'r'})
+    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'})
     ax.lines.pop(0)
     plt.ylabel(y_label, fontweight="bold" , c='0.3' )
     plt.xlabel(x_label, fontweight="bold" , c='0.3' )
@@ -203,21 +213,22 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size):
         title = "Random Networks (Size {})".format(size)
 
     try:
-        pcorr, _ = pearsonr(x_arr,y_arr)
+        pcorr, significance = pearsonr(x_arr,y_arr)
     except:
         print(x_arr, y_arr, x_label, y_label, dir, name, size)
           
     if (size == -1):
         corrarr.append(np.round(pcorr*10000)/10000)
         
-    if (y_label == "Average Perturbation JSD from WT"):
+    if (y_label == "Avg. Perturbation JSD"):
         print(size)
         corrarrpjsd.append(np.round(pcorr*10000)/10000)        
         
     # print(pcorr)
-    plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
+    #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
+    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
     plt.tight_layout()
-    plt.savefig("plots/{}/{}.jpg".format(dir, name))
+    plt.savefig("plots/{}/{}.png".format(dir, name), transparent = True)
     # print("{}/{}.jpg".format(dir, name))
     plt.close()
 
@@ -246,8 +257,8 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     # print(x_arr, y_arr)
                     plotter(x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
 
-x_label_arr = ["Number of Positive Feedback Loops", "Number of Negative Feedback Loops", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
-y_label_arr = ["Average Perturbation JSD from WT", "Average Fold Change (Plasticity) from WT", "JSD between RACIPE and Cont.", "Kinetic Robustness in Plasticity"]
+x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
+y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic Robustness in Plasticity"]
 dir_arr = ["pjsd", "fchg", "kjsd", "kplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
@@ -269,14 +280,13 @@ data = data.reshape((4,4))
 
 r = 2
 fig, ax = plt.subplots()   
-matplotlib.rcParams.update({'font.size': 10*r})  
 sns.heatmap(data , xticklabels = x_labels , yticklabels = y_labels, annot = True)  
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
 plt.tight_layout()
 
-plt.savefig("heatmap.png")
+plt.savefig("heatmap.png", transparent = True)
 plt.clf()
 
 import numpy as np
@@ -289,7 +299,6 @@ y_labels = ["4" , "5","6", "7" , "8" , "9" , "10" , "All"]
 
 r = 2
 fig, ax = plt.subplots()   
-matplotlib.rcParams.update({'font.size': 10*r})  
 sns.mpl_palette("jet", 6)
 data = corrarrpjsd
 data = np.abs(np.array(data))
@@ -299,18 +308,23 @@ fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
 
 data1 = data.T
-x1 = [4 , 5, 6 ,7 ,8 , 9 , 10 , "All"]
+x1 = [4 , 5, 6 ,7 ,8 , 9 , 10]
 import matplotlib.pyplot as plt
-
-plt.plot(x1, data1[0] ,  marker='o' , linewidth = 4)
-plt.plot(x1, data1[1] ,  marker="v", linewidth = 4)
-plt.plot(x1, data1[2] , marker = "p", linewidth = 4)
-plt.plot(x1, data1[3] , marker = "D", linewidth = 4)
+fig, ax = plt.subplots()
+plt.plot(x1, data1[0][:-1] ,  marker='o' , linewidth = 4)
+plt.plot(x1, data1[1][:-1] ,  marker="v", linewidth = 4)
+plt.plot(x1, data1[2][:-1] , marker = "p", linewidth = 4)
+plt.plot(x1, data1[3][:-1] , marker = "D", linewidth = 4)
+plt.scatter([11, 11, 11, 11], [data1[0][-1], data1[1][-1], data1[2][-1], data1[3][-1]], marker = 'o', s = 60, c = ['C0','C1','C2','C3'])
+ax.set_xticklabels([0,4,5,6,7,8,9,10,"ALL"])
 plt.xlabel("Random Network Size" , c='0.3', fontweight = 'bold')
-plt.ylabel("Correlation with Avg. Perturbation JSD")
-plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles' ,'Weighted Fraction of Positive Cycles'])
+plt.ylabel("Correlation with\nAvg. Perturbation JSD")
+plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles' ,'Weighted Fraction of Positive Cycles'], fancybox = True)
+f=r*np.array(plt.rcParams["figure.figsize"])
+fig = matplotlib.pyplot.gcf()
+fig.set_size_inches(f)
 plt.tight_layout()
 plt.ylim([0,1.1])
 
-plt.savefig("lineplot.png")
+plt.savefig("lineplot.png", transparent = True)
 plt.clf()

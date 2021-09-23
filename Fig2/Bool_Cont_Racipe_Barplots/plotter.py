@@ -8,7 +8,6 @@ import initialise.parser as parser
 
 print("modules")
 
-
 def plot_bar(filename, id_to_node, params):
     filename_index = 0
     for i in range(len(params['input_filenames'])):
@@ -159,7 +158,7 @@ def plot_bar(filename, id_to_node, params):
     yterr[0] = [yterr[0][i] for i in argarr]
     yterr[1] = [yterr[1][i] for i in argarr]
 
-    rcParams.update({'figure.autolayout': True})  # NOTE!!!!!!!!! properly resizes things :D
+    #rcParams.update({'figure.autolayout': True})
     plt.figure(figsize=(20, 10))
     plt.subplots_adjust(0.1, 0.5, 0.9, 0.9)
     plt.title("{}_steady_states".format(filename))
@@ -169,7 +168,7 @@ def plot_bar(filename, id_to_node, params):
 
     plt.bar(set_bin_fin, final, yerr=yterr, capsize=5)
 
-    plt.savefig("{}/{}/{}_ss_barplot.png".format(params['output_folder_name'], 'graphs', filename))
+    plt.savefig("{}/{}/{}_ss_barplot.png".format(params['output_folder_name'], 'graphs', filename), transparent = True)
 
 
 in_file = 'init.txt'

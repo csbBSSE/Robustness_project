@@ -15,14 +15,14 @@ import matplotlib
 import seaborn as sns
 from scipy.stats.stats import pearsonr
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'23', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '40', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'40'})
 
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 
 topofiles.sort()
 print(topofiles)
 
-version='bool' # bool / cont
+version='cont' # bool / cont
 Version = version
 
 def FixCase(st):
@@ -30,6 +30,15 @@ def FixCase(st):
 
 corrarr= []
 
+def starfunc(significance):
+    if significance < 0.001:
+        return "***"
+    elif significance < 0.01:
+        return "**"
+    elif significance < 0.05:
+        return "*"
+    else:
+        return ""
 
 for i in range(0, len(topofiles)):
     
@@ -46,7 +55,8 @@ for i in range(0, len(topofiles)):
     r = 2
     fig,ax = plt.subplots()
     matplotlib.rcParams.update({'font.size': 10*r})
-    corr, _ = pearsonr(racjsd,booljsd)
+    corr, significance = pearsonr(racjsd,booljsd)
+    print(topofiles[i], significance)
     corrarr.append(corr)
     a,res, rank , sing, thres = np.polyfit(booljsd,racjsd, 1, full = True)
     m = a[0]
@@ -54,20 +64,21 @@ for i in range(0, len(topofiles)):
     
     seagraph = sns.regplot(booljsd,racjsd, color ='blue')
     
-    xlabel1 = "JSD b/w Wildtype and Perturbed Network ({})".format(FixCase(Version))
-    ylabel1= "JSD b/w Wildtype and Perturbed Network (RACIPE)"
+    xlabel1 = "Perturbation JSD ({})".format(FixCase(Version))
+    ylabel1= "Perturbation JSD (RACIPE)"
     #title1 = "{}   ρ= {:.3f}   Residual = {:.3f} ".format(topofiles[i],corr, res[0])
     title1 = "{}".format(topofiles[i])
-    textstr = "ρ= {:.3f} \nResidual = {:.3f} ".format(corr, res[0])
+    textstr = "ρ= {:.3f}{} \nResidual = {:.3f} ".format(corr, starfunc(significance), res[0])
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
-    ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=21,
+    ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize = 40,
         verticalalignment='top', bbox=props)
     
     
     
     seagraph.set(xlabel = xlabel1, ylabel = ylabel1, title = title1)
     plt.plot(booljsd, m*booljsd + b, c='r')    
+    plt.title(title1, x = 0.9, y = 0.9)
     figure = seagraph.get_figure()  
     lim1 = min(booljsd) - 0.05
     lim2 = max(booljsd) + 0.05
@@ -79,7 +90,7 @@ for i in range(0, len(topofiles)):
     plt.tight_layout()       
     plt.autoscale()
     ax.set(xlim=(lim1 , lim2))
-    figure.savefig("{}plots/jsd_{}_seaborn.jpg".format(Version,topofiles[i]) , transparent = True)
+    figure.savefig("{}plots/jsd_{}_seaborn.png".format(Version,topofiles[i]) , transparent = True)
     plt.clf()
 
 

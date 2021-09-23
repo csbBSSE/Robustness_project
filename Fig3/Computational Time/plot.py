@@ -7,7 +7,7 @@ from matplotlib import rcParams
 bool = np.loadtxt("booltime.txt")
 rac = np.loadtxt("ractime.txt")
 
-r.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size':'30'})
+r.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'40', 'axes.labelsize':'40', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'40'})
 
 fig, ax = plt.subplots()
 ax.set_yscale('log')
@@ -24,8 +24,8 @@ leg = ax.legend()
 for line in leg.get_lines():
     line.set_linewidth(4.0)
     
-plt.title("RACIPE vs Continuous: Computation Time" , fontsize = 28)
+#plt.title("RACIPE vs Continuous: Computation Time" , fontsize = 28)
 f=2*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
-plt.savefig("comptime.png")
+plt.savefig("comptime.png", transparent = True)

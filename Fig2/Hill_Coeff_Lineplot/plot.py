@@ -7,8 +7,8 @@ import time
 from scipy.spatial.distance import jensenshannon
 import matplotlib
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '18', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
-plt.figure(figsize=(11,6))
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'33', 'axes.labelsize':'30', 'xtick.labelsize':'23', 'ytick.labelsize':'23', 'legend.fontsize':'20'})
+plt.figure(figsize=(10,7))
 
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 topofiles.sort()
@@ -100,11 +100,11 @@ plt.text(20, 0.38, 'OCT4' , c='C2')
 plt.text(20, 0.25, 'GRHL2' , c = 'C1' )
 plt.text(20, 0.19, 'GRHL2wa' , c = 'C0')
 
-plt.xlabel("Hill Coefficient Ranges", fontsize = 20)
-plt.ylabel("JSD from Boolean", fontsize = 20)
-plt.title("JSD on Varying Hill Coefficient  ", fontsize = 20)
+plt.xlabel("Hill Coefficient")
+plt.ylabel("JSD RACIPE vs Boolean")
+#plt.title("JSD on Varying Hill Coefficient")
 plt.tight_layout()
 plt.ylim([0.18, 0.55])
 plt.xticks(x, xtickarr)
 
-plt.savefig('jsdlineplot.png', transparent =False )
+plt.savefig('jsdlineplot.png', transparent =True )

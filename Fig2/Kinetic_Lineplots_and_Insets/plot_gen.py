@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 topofiles.sort()
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '50', 'axes.titlesize':'50', 'axes.labelsize':'50', 'xtick.labelsize':'40', 'ytick.labelsize':'40'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '50', 'axes.titlesize':'50', 'axes.labelsize':'60', 'xtick.labelsize':'40', 'ytick.labelsize':'40'})
 nn = "GRHL2"
 
 def fc(a,b):
@@ -44,17 +44,22 @@ fig = plt.figure()
 
 #matplotlib.rcParams.update({'font.size': 10*(r+0.5)})
 plt.rc('legend',fontsize=10*(r+0.5))
+
 plt.bar(xarrno, jsdbar[0], width = 0.4 ,color='r')
 plt.xticks(xarrno + 0.2, topofiles, fontweight="bold" , c='0.3' )
 plt.bar(xarrno + 0.4, jsdbar[1], width = 0.4, color='b')
 plt.xticks(rotation=20)
 #plt.xticks(fontsize= 10*(r+0.5))
-plt.ylabel("Average JSD", fontweight="bold" , c='0.3' )
+plt.ylabel("Avg. JSD", fontweight="bold" , c='0.3' )
 plt.xlabel("Networks" ,fontweight="bold" , c='0.3' )
 
 
-legend = plt.legend(["All Parameters Varied", "Only Hill Coeff Varied"] )
-plt.setp(legend.get_texts(), color='0.3',fontsize = 10*(r+0.5) , fontweight="bold" )
+ax = fig.axes[0]
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+legend = plt.legend(["All Parameters Varied", "Only Hill Coeff Varied"], loc='upper left')
+plt.setp(legend.get_texts(), color='0.3',fontsize = 16*(r+0.5) , fontweight="bold")
 
 plt.tick_params(
     axis='x',          # changes apply to the x-axis
@@ -66,9 +71,9 @@ plt.tick_params(
 f=(r + 0.7)*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
-plt.title("Average JSD", fontweight="bold")
+#plt.title("Average JSD", fontweight="bold")
 axes = plt.gca()
-axes.set_ylim([0,0.27])
+axes.set_ylim([0,0.3])
 plt.tight_layout()
 plt.savefig("barjsd.png", transparent = True)
 plt.close()
@@ -83,12 +88,12 @@ plt.xticks(xarrno + 0.2 , topofiles, fontweight="bold" , c='0.3' )
 plt.bar(xarrno+0.4, plastbar[1], width = 0.4, color='b')
 plt.xticks(rotation=20)
 #plt.xticks(fontsize= aaa*(r+0.5))
-plt.ylabel("Average Fold Change", fontweight="bold" , c='0.3' )
+plt.ylabel("Avg. Fold Change", fontweight="bold" , c='0.3' )
 plt.xlabel("Networks", fontweight="bold" , c='0.3' )
 
 
 legend = plt.legend(["All Parameters Varied", "Only Hill Coeff Varied"] )
-plt.setp(legend.get_texts(), color='0.3',fontsize = aaa*(r+0.5) , fontweight="bold" )
+plt.setp(legend.get_texts(), color='0.3', fontsize = 25*(r+0.5), fontweight="bold")
 
 plt.tick_params(
     axis='x',          # changes apply to the x-axis
@@ -96,7 +101,7 @@ plt.tick_params(
     bottom=False,      # ticks along the bottom edge are off
     top=False,         # ticks along the top edge are off
     labelbottom=True) # labels along the bottom edge are off
-plt.title("Average Fold Change", fontweight="bold")
+#plt.title("Average Fold Change", fontweight="bold")
 f=(r + 0.7)*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import matplotlib
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'30', 'ytick.labelsize':'30'})
 
 
 arr1 = np.loadtxt("weight.txt")
@@ -33,9 +33,9 @@ plt.hist(arr2, bins = 20)
 plt.xticks(posarr,xticks)
 
 plt.axvline(np.median(arr1), color='r', linestyle='dashed', linewidth=4)
-plt.title("Weights for Plasticity", fontsize = 30)
-plt.ylabel("Number of networks", fontsize = 30)
-plt.xlabel("Optimal weight for PFL" , fontsize = 30)
+#plt.title("Weights for Plasticity", fontsize = 40)
+plt.ylabel("No. of networks", fontsize = 35)
+plt.xlabel("Optimal weight for PFL" , fontsize = 35)
 r = 2
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
@@ -44,15 +44,15 @@ fig.set_size_inches(f)
 
 plt.tight_layout()
 median = np.median(arr1)
-textstr = r'$\mathrm{Median}=%.2f$' % (median, )
+textstr = r'$\mathrm{Median}=%.3f$' % (median, )
 props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
 # place a text box in upper left in axes coords
-ax.text(0.10, 0.95, textstr, transform=ax.transAxes, fontsize=25,
+ax.text(0.10, 0.95, textstr, transform=ax.transAxes, fontsize=35,
         verticalalignment='top', bbox=props)
 
 
-plt.savefig("weighthist.jpg", transparent = True)
+plt.savefig("weighthist.png", transparent = True)
 
 plt.clf()
 print(np.median(arr1))
