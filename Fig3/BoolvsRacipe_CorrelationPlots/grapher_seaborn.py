@@ -22,7 +22,7 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join
 topofiles.sort()
 print(topofiles)
 
-version='cont' # bool / cont
+version='bool' # bool / cont
 Version = version
 
 def FixCase(st):
@@ -67,7 +67,10 @@ for i in range(0, len(topofiles)):
     xlabel1 = "Perturbation JSD ({})".format(FixCase(Version))
     ylabel1= "Perturbation JSD (RACIPE)"
     #title1 = "{}   ρ= {:.3f}   Residual = {:.3f} ".format(topofiles[i],corr, res[0])
-    title1 = "{}".format(topofiles[i])
+    if(topofiles[i] != 'OVOL2'):
+        title1 = "{}".format(topofiles[i])
+    else:
+        title1 = "{}".format('OVOL')
     textstr = "ρ= {:.3f}{} \nResidual = {:.3f} ".format(corr, starfunc(significance), res[0])
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 

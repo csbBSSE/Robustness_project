@@ -31,5 +31,6 @@ def histogram(ax, valarr, coords, names, colours, nbins):
     legend_ele = []
     for i in range(num):
         legend_ele.append(Line2D([0], [0], marker='o', color='w', label=names[i], markerfacecolor=colours[i], markersize=20))
-    ax.legend(handles = legend_ele)
+
+    ax.legend(handles = legend_ele, bbox_to_anchor = (0.47,0.63), handletextpad=0.01, frameon=False)
 

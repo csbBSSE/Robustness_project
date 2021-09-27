@@ -233,7 +233,7 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
         
 
     #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
-    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
+    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)], prop={'size': 25})
     plt.tight_layout()
     plt.savefig("plots/{}/{}_coloredsize.png".format(dir, name), transparent = True)
 
@@ -271,8 +271,8 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     plotter(x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size, topo_sizearr)                   
 
 x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
-y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic Robustness in Plasticity"]
-dir_arr = ["pjsd", "fchg", "kjsd", "kplast"]
+y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic fold change in Plasticity"]
+dir_arr = ["pjsd", "fchg", "djsd", "dplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
 

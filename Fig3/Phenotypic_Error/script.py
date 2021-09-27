@@ -37,11 +37,11 @@ import matplotlib.ticker as ticker
 ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda y,pos: ('{{:.{:1d}f}}'.format(int(np.maximum(-np.log10(y),0)))).format(y)))
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y,pos: ('{{:.{:1d}f}}'.format(int(np.maximum(-np.log10(y),0)))).format(y)))
 ax.set_xlabel("Number of RACIPE models")
-ax.set_ylabel("Fraction Error(s)")
+ax.set_ylabel("Fraction Error")
 #ax.set_title("RACIPE vs Continuous (Phenotypic Error)", fontsize = 30)
 
 legend_ele = [Line2D([0], [0], marker='o', color='w', label='GRHL2', markerfacecolor='r', markersize=15),
-              Line2D([0], [0], marker='o', color='w', label='OVOL2', markerfacecolor='g', markersize=15),
+              Line2D([0], [0], marker='o', color='w', label='OVOL', markerfacecolor='g', markersize=15),
               Line2D([0], [0], marker='o', color='w', label='OCT4', markerfacecolor='b', markersize=15),
               Line2D([0], [0], linestyle='-', color='k', linewidth = '5', label='RACIPE', markerfacecolor='g', markersize=15),
               Line2D([0], [0], linestyle=':', color='k', linewidth = '5', label='Continuous', markerfacecolor='g', markersize=15)]

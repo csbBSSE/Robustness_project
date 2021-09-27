@@ -15,7 +15,11 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import seaborn as sns
 from matplotlib.lines import Line2D
-
+import matplotlib.patches as mpatches
+colorarr = []
+col = ['r' , 'g', 'm', 'k' ,'c', 'y', 'C1' ]
+import warnings
+warnings.filterwarnings("ignore")
 def starfunc(significance):
     if significance < 0.001:
         return "***"
@@ -93,7 +97,7 @@ for i in range(len(topofiles)):
         #perturbation JSD
 
     try:
-        if("fix" not in network_name):
+        if("fix" not in network_name and network_name[0]=='r'):
             flag= 1/ 0
         pjsd = np.mean(np.loadtxt("raw_data/cnt2_{}_jsd.txt".format(network_name)))
     except:
@@ -161,9 +165,11 @@ corrarrpjsd  =[]
 
 
 
-def plotter(x_arr, y_arr, x_label, y_label, dir, name, size):
+def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     global corrarr
     global corrarrpjsd
+    
+    
     
     if(x_label == "Fraction of Weighted Positive Cycles"):
         temp1 = []
@@ -193,8 +199,13 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size):
 
     fig, ax = plt.subplots()
 
+    
+    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'} )
+    
+    test = []
+    
 
-    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'})
+            
     ax.lines.pop(0)
     plt.ylabel(y_label, fontweight="bold" , c='0.3' )
     plt.xlabel(x_label, fontweight="bold" , c='0.3' )
@@ -224,9 +235,34 @@ def plotter(x_arr, y_arr, x_label, y_label, dir, name, size):
         print(size)
         corrarrpjsd.append(np.round(pcorr*10000)/10000)        
         
+    if(size!= 15):
+        colarr = []
+        count = 0
+        x_arr1 = []
+        y_arr1 = []
+        labels = []
+        test.append(Line2D([], [], color= 'w', marker='X',
+                          markersize=20, label= "ρ = {:.3f}{}".format(pcorr, starfunc(significance)) ,linestyle='None'))
+        while(topofiles[count][0]!='r'):
+           labels.append(topofiles[count])
+           colarr.append(col[count])
+           x_arr1.append(x_arr[count])
+           y_arr1.append(y_arr[count])
+           #print("labels",labels)
+           test.append(Line2D([], [], color= col[count], marker='X',
+                          markersize=20, label= labels[count],linestyle='None'))
+           count+=1
+        for k in range(len(x_arr1)):
+            plt.plot( x_arr1[k], y_arr1[k] , c =  colarr[k] , marker = 'X',  markersize = 20 , linestyle = 'None')    
+            
     # print(pcorr)
-    #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3')
-    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
+    #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3
+    #leg1 = ax.legend(handles = test, prop={'size': 25})
+    
+    #leg2 = ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
+    #ax.add_artist(leg1)
+
+    ax.legend(handles = test, prop={'size': 25})
     plt.tight_layout()
     plt.savefig("plots/{}/{}.png".format(dir, name), transparent = True)
     # print("{}/{}.jpg".format(dir, name))
@@ -236,9 +272,11 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
     size_arr = [4, 5, 6, 7, 8, 9, 10 , -1]
     for size in size_arr:
         topofiles = topofiles_size(topofiles_all, size)
+
         print("Size:", size)
         for emp_index in range(len(y_label_arr)):
             for met_index in range(len(x_label_arr)):
+                    topofile_input = []
                     x_arr = []
                     y_arr = []
                     for i in topofiles:
@@ -248,18 +286,23 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                                 if np.isfinite(db_emp[i][emp_index]) and np.isfinite(db_met[i][met_index]):
                                     x_arr.append(db_met[i][met_index])
                                     y_arr.append(db_emp[i][emp_index])
+                                    topofile_input.append(i)
                             else:
                                 if np.isfinite(db_emp[i][emp_index]) and (np.isfinite(db_met[i][met_index][0] and np.isfinite(db_met[i][met_index][1]))):
                                     x_arr.append(db_met[i][met_index])
-                                    y_arr.append(db_emp[i][emp_index])                                
+                                    y_arr.append(db_emp[i][emp_index])      
+                                    topofile_input.append(i)                                        
                     size_str = "all" if size == -1 else str(size)
                     name = "{}_{}_{}".format(dir_arr[emp_index], met_arr[met_index], size_str)
+                    topofile_input = list(map(lambda x: x if x != 'OVOL2' else 'OVOL', topofile_input))
+                    topofile_input.sort()
+                    #print("input", topofile_input[0])
                     # print(x_arr, y_arr)
-                    plotter(x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
+                    plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
 
 x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
 y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic Robustness in Plasticity"]
-dir_arr = ["pjsd", "fchg", "kjsd", "kplast"]
+dir_arr = ["pjsd", "fchg", "djsd", "dplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
 
@@ -270,8 +313,8 @@ print("corrarrpjsd")
 print(corrarrpjsd)
 
 
-x_labels = ["PFL", "NFL" , "FPL" , "WFPL" ]
-y_labels = ["pJSD" , "fchg" , "kJSD" , "kplast"]
+x_labels = ["PFL", "NFL", "FPC" , "WFPC"]
+y_labels = ["pJSD" , "fchg" , "dJSD" , "dplast"]
 
 data = corrarr
 
@@ -280,7 +323,9 @@ data = data.reshape((4,4))
 
 r = 2
 fig, ax = plt.subplots()   
-sns.heatmap(data , xticklabels = x_labels , yticklabels = y_labels, annot = True)  
+heatmap = sns.heatmap(data , xticklabels = x_labels , yticklabels = y_labels, annot = True)  
+heatmap.set_xticklabels(heatmap.get_xmajorticklabels(), fontsize = 30)
+heatmap.set_yticklabels(heatmap.get_ymajorticklabels(), fontsize = 30)
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
@@ -293,7 +338,7 @@ import numpy as np
 import seaborn as sns
 
 
-x_labels = ["NPL", "NNL", "FPL" , "WFPL"]
+x_labels = ["PFL", "NFL", "FPC" , "WFPC"]
 y_labels = ["4" , "5","6", "7" , "8" , "9" , "10" , "All"]
 
 
@@ -312,19 +357,22 @@ x1 = [4 , 5, 6 ,7 ,8 , 9 , 10]
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 plt.plot(x1, data1[0][:-1] ,  marker='o' , linewidth = 4)
-plt.plot(x1, data1[1][:-1] ,  marker="v", linewidth = 4)
-plt.plot(x1, data1[2][:-1] , marker = "p", linewidth = 4)
-plt.plot(x1, data1[3][:-1] , marker = "D", linewidth = 4)
-plt.scatter([11, 11, 11, 11], [data1[0][-1], data1[1][-1], data1[2][-1], data1[3][-1]], marker = 'o', s = 60, c = ['C0','C1','C2','C3'])
+plt.plot(x1, data1[1][:-1] ,  marker="o", linewidth = 4)
+plt.plot(x1, data1[2][:-1] , marker = "o", linewidth = 4)
+plt.plot(x1, data1[3][:-1] , marker = "o", linewidth = 4)
+arrcol =  ['C0','C1','C2','C3']
+for j in range(4):
+     plt.plot( 11, data1[j][-1] , marker = 'X', markersize = 20, c = arrcol[j] ,linestyle = 'None' )
+
 ax.set_xticklabels([0,4,5,6,7,8,9,10,"ALL"])
 plt.xlabel("Random Network Size" , c='0.3', fontweight = 'bold')
 plt.ylabel("Correlation with\nAvg. Perturbation JSD")
-plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles' ,'Weighted Fraction of Positive Cycles'], fancybox = True)
+plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles(Unweighted)' ,'Weighted Fraction of Positive Cycles'], fancybox = True)
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
 plt.tight_layout()
-plt.ylim([0,1.1])
+plt.ylim([-0.03,1.1])
 
 plt.savefig("lineplot.png", transparent = True)
 plt.clf()

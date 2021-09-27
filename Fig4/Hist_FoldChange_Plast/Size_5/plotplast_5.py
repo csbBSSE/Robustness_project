@@ -26,7 +26,8 @@ plast=np.loadtxt("plastnetwork.txt")
 
 #---------------------------------------------
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'25'})
+
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 number = 5
 n_bins  = 20  
 r = 2
@@ -38,9 +39,9 @@ colours = ['r']
 coords = [0.86]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("Average fold change in Plasticity", fontweight="bold" , c='0.3', fontsize = 30)
-plt.ylabel("Number of Random networks" , fontweight="bold" , c='0.3', fontsize = 30)
-plt.title("Distribution of Average fold change in Plasticity: Size {}".format(number), fontweight="bold" , c='0.3')
+plt.xlabel("Avg. fold change in Plasticity", fontweight="bold" , c='0.3')
+plt.ylabel("No. of Random networks" , fontweight="bold" , c='0.3')
+#plt.title("Distribution of Average fold change in Plasticity: Size {}".format(number), fontweight="bold" , c='0.3')
 
     
 f=r*np.array(plt.rcParams["figure.figsize"])

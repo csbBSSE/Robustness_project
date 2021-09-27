@@ -62,7 +62,7 @@ for i in range(len(topofiles)):
     curnetwork.write(topofiles[i])
     curnetwork.close()
     
-    os.system("python3 racvsbool2_error.py")
+    os.system("python3 racvsbool2_error_emt.py")
     
     for j in range(1,4):
         os.remove("output/{}_init_run{}.txt".format(topofiles[i],j))

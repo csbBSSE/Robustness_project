@@ -36,7 +36,7 @@ r = 2
 matplotlib.rcParams.update({'font.size': 10*r})  
 fig,ax = plt.subplots()
 valarr = plast
-names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
+names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
 coords = [0.770996398,0.848018925,0.782366951,0.790414021]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   

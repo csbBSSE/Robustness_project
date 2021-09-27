@@ -95,7 +95,7 @@ for i in range(len(xtickarr)):
 #leg = plt.legend(bbox_to_anchor=(0.8,0.78), framealpha = 1.0)
 #leg.get_frame().set_edgecolor('k')
 #leg.get_frame().set_linewidth(3)
-plt.text(20, 0.48, 'OVOL2' , c='C3')
+plt.text(20, 0.48, 'OVOL' , c='C3')
 plt.text(20, 0.38, 'OCT4' , c='C2')
 plt.text(20, 0.25, 'GRHL2' , c = 'C1' )
 plt.text(20, 0.19, 'GRHL2wa' , c = 'C0')

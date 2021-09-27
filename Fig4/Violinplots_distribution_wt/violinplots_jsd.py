@@ -6,7 +6,7 @@ from os.path import isfile, join
 import matplotlib.pyplot as plt
 import seaborn 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'35', 'axes.labelsize':'28', 'xtick.labelsize':'28', 'ytick.labelsize':'25', 'legend.fontsize':'30'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'35', 'axes.labelsize':'28', 'xtick.labelsize':'28', 'ytick.labelsize':'18', 'legend.fontsize':'30'})
 
 
 min_fold = []

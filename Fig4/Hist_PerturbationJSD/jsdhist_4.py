@@ -35,7 +35,7 @@ r = 2
 matplotlib.rcParams.update({'font.size': 10*r})  
 fig,ax = plt.subplots()
 valarr = avgarr
-names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
+names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
 coords = [0.21342106249999998, 0.201548, 0.228, 0.215358625]   
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
@@ -43,7 +43,9 @@ histarrows.histogram(ax, valarr, coords, names, colours, n_bins)
 plt.xlabel("Average Perturbation JSD", fontweight="bold", c = '0.3')
 plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
 #plt.title("Networks (Size {})".format(number), fontweight="bold", c = '0.3', fontsize = 30)
-
+ax.spines['right'].set_visible(False)
+#leg = ax.get_legend()
+#plt.legend(bbox_to_anchor=[0.5, 0.5])
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)            

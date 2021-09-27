@@ -23,12 +23,12 @@ for nn in topofiles:
 
     for i in range(len(colours)):
         plt.figure(2)
-        plt.plot(amplifications, jsd[:, 2 * i], c = colours[i])# , marker = markers[markercount]
-        plt.errorbar(amplifications, jsd[:, 2 * i], yerr = jsd[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0,  linewidth = 2,barsabove = True, capsize = 5)
+        plt.plot(amplifications, jsd[:, 2 * i], c = colours[i] ,linewidth = 3)# , marker = markers[markercount]
+        plt.errorbar(amplifications, jsd[:, 2 * i], yerr = jsd[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0,  linewidth = 2,barsabove = True, capsize = 5, ecolor = 'k')
 
         plt.figure(1)
-        plt.plot(amplifications, plast[:, 2 * i], c = colours[i])# , marker = markers[markercount]
-        plt.errorbar(amplifications, plast[:, 2 * i], yerr = plast[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0, linewidth = 2, barsabove = True, capsize = 5)
+        plt.plot(amplifications, plast[:, 2 * i], c = colours[i],linewidth = 3)# , marker = markers[markercount]
+        plt.errorbar(amplifications, plast[:, 2 * i], yerr = plast[:, 2 * i + 1], c = colours[i], fmt = 'o', markersize = 0, linewidth = 2, barsabove = True, capsize = 5 , ecolor = 'k')
 
     fig = plt.figure(1)
 
@@ -43,7 +43,7 @@ for nn in topofiles:
     plt.ylabel("Plasticity",fontsize=15*r, fontweight = "bold", c='0.3')
     #plt.title("{}".format(nn), fontweight = "bold", c='0.3')
 
-    legend = plt.legend(legendarr,bbox_to_anchor=(1.3, 1.3))
+    legend = plt.legend(legendarr,bbox_to_anchor=(1.3, 1.3), frameon = False)
     plt.setp(legend.get_texts(), color='0.3',fontsize = 12*r , fontweight="bold" )
     f=r*np.array(plt.rcParams["figure.figsize"])
     fig = matplotlib.pyplot.gcf()
@@ -71,7 +71,7 @@ for nn in topofiles:
     plt.ylabel("JSD from WT", fontsize=15*r, fontweight = "bold", c='0.3')
     #plt.title("{}\n\n\n".format(nn), fontweight = "bold", c='0.3')
     plt.ylim([0, 0.2])
-    legend = plt.legend(legendarr,bbox_to_anchor=(1.2, 1.3))
+    legend = plt.legend(legendarr,bbox_to_anchor=(1.2, 1.3), frameon = False)
     plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
 
     f=r*np.array(plt.rcParams["figure.figsize"])

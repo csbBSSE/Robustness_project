@@ -8,7 +8,7 @@ matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.co
 
 xarrno = np.array([0,1,2,3,4])
 
-xarr4=['GRHL2', 'GRHL2wa', 'OCT4', 'OVOL2', 'OVOLsi']
+xarr4=['GRHL2', 'GRHL2wa', 'OCT4', 'OVOL', 'OVOLsi']
 from matplotlib.pyplot import figure
 
 yarr41=[7.644880313883776202e-01,
@@ -33,7 +33,7 @@ plt.xticks(xarrno + 0.2 , xarr4 , fontweight="bold" , c='0.3' )
 plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
 plt.xticks(rotation=15)
 plt.ylabel("JSD Correlation with Racipe", fontweight="bold" , c='0.3' )
-plt.xlabel("Networks" ,fontweight="bold" , c='0.3' )
+#plt.xlabel("Networks" ,fontweight="bold" , c='0.3' )
 #plt.title("Boolean vs Cont. Correlation with Racipe")
 
 legend = plt.legend(['Boolean', 'Continuous'] )
@@ -61,7 +61,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 xarrno = np.array([0,1,2,3,4])
 import matplotlib
-xarr4=['GRHL2','GRHL2wa', 'NRF2', 'OCT4', 'OVOL2']
+xarr4=['GRHL2','GRHL2wa', 'NRF2', 'OCT4', 'OVOL']
 
 
 yarr41=[0.2666,
@@ -87,7 +87,7 @@ plt.xticks(xarrno + 0.2 , xarr4,  fontweight="bold" , c='0.3')
 plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
 
 plt.ylabel("JSD from RACIPE",  fontweight="bold" , c='0.3')
-plt.xlabel("Networks", fontweight="bold" , c='0.3')
+#plt.xlabel("Networks", fontweight="bold" , c='0.3')
 plt.xticks(rotation=15)
 #plt.title("Boolean vs Cont. JSD")
 legend = plt.legend(['Boolean', 'Continuous'] )

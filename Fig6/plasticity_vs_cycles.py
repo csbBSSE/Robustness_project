@@ -16,7 +16,7 @@ from copy import copy
 from scipy.optimize import curve_fit
 print('imported modules')
 
-
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'35', 'axes.labelsize':'38', 'xtick.labelsize':'28', 'ytick.labelsize':'19', 'legend.fontsize':'30'})
 
 '''
 def func_frac(X, a , b , c):    #custom function for fraction of cycles
@@ -33,7 +33,17 @@ def func_frac(X, a , b , c):    #custom function for fraction of cycles
             except:
                 z[i] = 0
     return b*z + z1
-'''   
+'''  
+ 
+def starfunc(significance):
+    if significance < 0.001:
+        return "***"
+    elif significance < 0.01:
+        return "**"
+    elif significance < 0.05:
+        return "*"
+    else:
+        return ""
 
 def func_frac_output(X, a , b , c):    #custom function for fraction of cycles
     x,y = X
@@ -221,17 +231,17 @@ for i in range(len(topofiles)):
     plt.scatter(new_pos1 , plastarr , c= colorarr, s = 50)
     plt.colorbar()
     
-    corr, _ = pearsonr(new_pos1, plastarr)
+    corr, significance= pearsonr(new_pos1, plastarr)
     
-    plt.xlabel("Δ Positive Feedback Loops")
-    plt.ylabel("Plasticity of Perturbed Network")
-    plt.title("{}  ρ = {:.3f}".format(network_name,corr))
+    plt.xlabel("Δ PFLs")
+    plt.ylabel("Perturbed Plasticity")
+    plt.title("{}  ρ = {:.3f}{}".format(network_name,corr, starfunc(significance)))
     f=r*np.array(plt.rcParams["figure.figsize"])
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)          
 
     
-    plt.savefig("just_pos_{}.jpg".format(topofiles[i]))
+    plt.savefig("just_pos_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()
     
     #plotting vs diff in weighted feedback loops    
@@ -239,16 +249,16 @@ for i in range(len(topofiles)):
     fig = plt.figure()
     plt.scatter(diff_weight_loops, plastarr , c= colorarr, s = 50)
     plt.colorbar()   
-    corr, _ = pearsonr(diff_weight_loops, plastarr)    
+    corr, significance = pearsonr(diff_weight_loops, plastarr)    
     
-    plt.xlabel("Δ Weighted Feedback Loops")
-    plt.ylabel("Plasticity of Perturbed Network")   
-    plt.title("{}  ρ = {:.3f}".format(network_name,corr))
+    plt.xlabel("Δ WFLs")
+    plt.ylabel("Perturbed Plasticity")
+    plt.title("{}  ρ = {:.3f}{}".format(network_name,corr, starfunc(significance)))
     f=r*np.array(plt.rcParams["figure.figsize"])
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)          
      
-    plt.savefig("diff_weight_loops_{}.jpg".format(topofiles[i]))
+    plt.savefig("diff_weight_loops_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()     
     
     #plotting vs diff in fraction of weighted feedback loops    
@@ -266,6 +276,6 @@ for i in range(len(topofiles)):
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)         
     
-    plt.savefig("frac_weight_loops_{}.jpg".format(topofiles[i]))
+    plt.savefig("frac_weight_loops_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()      
     

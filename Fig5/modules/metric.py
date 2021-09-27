@@ -53,7 +53,7 @@ def cycle_info(network_name, graph):
     total_cycles = len(sign)
     total_weight = weigh_num_pos + weigh_num_neg
     
-    return np.array([num_pos_cycles, num_neg_cycles, num_neg_cycles/max(total_cycles,1), (weigh_num_pos ,  weigh_num_neg) ])
+    return np.array([num_pos_cycles, num_neg_cycles, num_pos_cycles/max(total_cycles,1), (weigh_num_pos ,  weigh_num_neg) ])
 
 def matrix(network_name):
     network = open(os.path.dirname(__file__) + "/../input/{}.topo".format(network_name)).read().split("\n")[1:]

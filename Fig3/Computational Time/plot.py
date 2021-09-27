@@ -18,7 +18,7 @@ plt.plot(x, rac[:, 0], label = "RACIPE", c = 'r')
 plt.errorbar(x, rac[:, 0], rac[:, 1], capsize = 5, c = 'r', linewidth = 5 , elinewidth = 2 , ecolor = 'k')
 
 plt.xlabel("Network Size")
-plt.ylabel("Computational Time")
+plt.ylabel("Computational Time(s)")
 leg = ax.legend()
 
 for line in leg.get_lines():

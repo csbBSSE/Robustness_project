@@ -40,9 +40,9 @@ colours = ['r']
 coords = [0.2]   
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("Average Perturbation JSD", fontweight="bold", c = '0.3', fontsize = 30)
-plt.ylabel("Number of Random Networks", fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Networks (Size {})".format(number), fontweight="bold", c = '0.3', fontsize = 30)
+plt.xlabel("Avg. Perturbation JSD", fontweight="bold", c = '0.3')
+plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
+#plt.title("Networks (Size {})".format(number), fontweight="bold", c = '0.3', fontsize = 30)
 
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()

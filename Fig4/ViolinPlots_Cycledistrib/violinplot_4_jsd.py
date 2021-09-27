@@ -76,17 +76,18 @@ data_matrix = [pfljsdarr_group[0],pfljsdarr_group[1] , nfljsdarr_group[0] , nflj
 labels = ["PFL Left", "PFL Right" , "NFL Left" , "NFL Right"]
 r = 2
 fig,ax = plt.subplots()
-ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'])
+ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'] , linewidth = 4)
 ax.set_xticklabels(labels)
 a1 = np.mean(data_matrix[0])
 print(data_matrix[0])
 a2 = np.mean(data_matrix[1])
 a3 = np.mean(data_matrix[2])
 a4 = np.mean(data_matrix[3])
-plt.scatter([0,1,2,3], [a1,a2,a3,a4] , c='k' )
+plt.scatter([0,1,2,3], [a1,a2,a3,a4] , c='k' , s=65)
 #plt.title("Size 4 (Grouped by JSD)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
-
+plt.xlabel("(Grouped by JSD)")
 ax.set_ylabel("No. of Feedback Loops")
+ax.set_ylim([0,7])
 f=2*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)

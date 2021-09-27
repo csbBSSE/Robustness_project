@@ -44,10 +44,10 @@ r = 2
 matplotlib.rcParams.update({'font.size': 13*r})  
 fig,ax = plt.subplots()
 valarr = jsdarr
-names = ["GRHL2" , "GRHL2wa", "OVOL2", "OVOLsi"]
-colours = ['r', 'g', 'gold', 'k']
+names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
+colours = ['r', 'g', 'm', 'k']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
-ax.spines['right'].set_visible(False)
+
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
 plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
 #plt.title("Networks (Size 4)", fontweight="bold", c = '0.3' ,  fontsize = 30 ) 

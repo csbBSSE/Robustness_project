@@ -20,6 +20,7 @@ import histarrows as histarrows
 
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
+
 jsdarr=[]
 coords = []
 racarr = []
@@ -53,9 +54,9 @@ colours = ['r']
 coords = [0.1396]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
-plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3', fontsize = 30)
-plt.ylabel("Number of random networks" , fontweight="bold", c = '0.3', fontsize = 30)
-plt.title("Networks (Size 5)", fontweight="bold", c = '0.3' , fontsize = 29)
+plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
+plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
+#plt.title("Networks (Size 5)", fontweight="bold", c = '0.3' , fontsize = 29)
 
        
 f=r*np.array(plt.rcParams["figure.figsize"])
