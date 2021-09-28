@@ -88,72 +88,6 @@ def matrix(network_name):
 
     return link_matrix
 
-def activation_measure(curstate, link_matrix, graph):
-    activation = np.matmul(curstate, link_matrix)
-    sum_act = np.dot(curstate, activation)
-    bad_nodes = []
-    all_nodes = list(graph.nodes)
-    for i in range(len(graph.nodes)):
-        if activation[i] * curstate[i] < 0:
-            bad_nodes.append(all_nodes[i])
-
-    # for i in bad_nodes:
-    #     print(graph.in_degree(i))
-    a = []
-    for i in bad_nodes:
-        if graph.in_degree(i) == 0:
-            a.append(10)
-        else:
-            a.append(1/graph.in_degree(i))
-    bad_indegree_sum = sum(a)
-    indegree_sum = sum([graph.in_degree(i) for i in graph.nodes])
-
-    return (sum_act/(1 + bad_indegree_sum))/indegree_sum
-
-
-def act_eig(network_name, graph, lm):
-    lm_sym = (lm + lm.T) / 2
-
-    val, vec = np.linalg.eig(lm_sym)
-    n = len(val)
-
-    arg = np.flip(np.argsort(val))
-
-    val_sort = np.zeros(val.shape)
-    vec_sort = np.zeros(vec.shape)
-
-    for i in range(n):
-        val_sort[i] = val[arg[i]]
-        vec_sort[i] = vec[arg[i]]
-
-    v = vec_sort[0]
-    for i in range(n):
-        v[i] = np.real(v[i])
-
-    v_bin = np.zeros(n)
-    
-    for i in range(n):
-        if(v[i] >0):
-            v_bin[i] = 1
-        elif(v[i]<0):
-            v_bin[i] = -1
-        else:
-            v_bin[i] = 0
-
-    for run in range(10):
-        act = np.matmul(v_bin, lm)
-       
-        for i in range(n):
-            v_bin[i] = -v_bin[i] if act[i]*v_bin[i] < 0 else v_bin[i]
-            
-
-    act_measure = activation_measure(v_bin, lm, graph)
-
-    val_pos = [i for i in val_sort if i>0]
-    eigsum = sum(val_pos)
-
-    return [act_measure, val_sort[0], eigsum, val_sort[0]/np.sqrt(n), eigsum/(np.sqrt(n) * len(val_pos))]
-
 if __name__ == '__main__':
     import sys
     sys.path.append('../')
@@ -164,4 +98,3 @@ if __name__ == '__main__':
     graph = networkx_graph(network_name)
     cycle_stuff = cycle_info(network_name, graph)
     link_matrix = matrix(network_name)
-    a = act_eig(network_name, graph, link_matrix)

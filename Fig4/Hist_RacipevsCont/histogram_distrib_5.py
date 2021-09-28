@@ -57,7 +57,7 @@ histarrows.histogram(ax, valarr, coords, names, colours, n_bins)
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
 plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
 #plt.title("Networks (Size 5)", fontweight="bold", c = '0.3' , fontsize = 29)
-
+plt.yticks(np.arange(0,22,3))
        
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()

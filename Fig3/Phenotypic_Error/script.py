@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib.lines import Line2D
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'50', 'axes.labelsize':'45', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'28'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'50', 'axes.labelsize':'45', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'33'})
 
 topofiles = ["GRHL2", "NRF2", "GRHL2wa", "OCT4", "OVOL2", "OVOLsi"]
 topofiles = ["GRHL2", "OVOL2", "OCT4"]
@@ -45,7 +45,8 @@ legend_ele = [Line2D([0], [0], marker='o', color='w', label='GRHL2', markerfacec
               Line2D([0], [0], marker='o', color='w', label='OCT4', markerfacecolor='b', markersize=15),
               Line2D([0], [0], linestyle='-', color='k', linewidth = '5', label='RACIPE', markerfacecolor='g', markersize=15),
               Line2D([0], [0], linestyle=':', color='k', linewidth = '5', label='Continuous', markerfacecolor='g', markersize=15)]
-ax.legend(handles = legend_ele, bbox_to_anchor = (0.6, 0.9))
+ax.legend(handles = legend_ele, bbox_to_anchor = (0.57, 0.67), handletextpad = 0.1, frameon=True)
+leg = ax.legend(handles = legend_ele, bbox_to_anchor = (0.57, 0.67), handletextpad = 0.1, facecolor='white', framealpha=1)
 
 fig.tight_layout()
 plt.savefig("errorplot.png", transparent = True)

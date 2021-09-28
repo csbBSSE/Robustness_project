@@ -37,7 +37,7 @@ for w in range(len(topofiles)):
           data1=cycledata[k].split()
                 #print(data1)
           if(data1[0]==topofiles[w]):       
-            negweightfrac_val = 1- float(data1[7])
+            negweightfrac_val = 1- float(data1[3])
             neg_weight_fracarr.append(negweightfrac_val)
             break
         

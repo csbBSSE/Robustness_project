@@ -301,7 +301,7 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
 
 x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
-y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change (Plasticity)", "RACIPE vs Cont. (JSD)", "Dynamic Robustness in Plasticity"]
+y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
 dir_arr = ["pjsd", "fchg", "djsd", "dplast"]
 met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
@@ -313,7 +313,7 @@ print("corrarrpjsd")
 print(corrarrpjsd)
 
 
-x_labels = ["PFL", "NFL", "FPC" , "WFPC"]
+x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
 y_labels = ["pJSD" , "fchg" , "dJSD" , "dplast"]
 
 data = corrarr
@@ -338,7 +338,7 @@ import numpy as np
 import seaborn as sns
 
 
-x_labels = ["PFL", "NFL", "FPC" , "WFPC"]
+x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
 y_labels = ["4" , "5","6", "7" , "8" , "9" , "10" , "All"]
 
 
@@ -367,7 +367,7 @@ for j in range(4):
 ax.set_xticklabels([0,4,5,6,7,8,9,10,"ALL"])
 plt.xlabel("Random Network Size" , c='0.3', fontweight = 'bold')
 plt.ylabel("Correlation with\nAvg. Perturbation JSD")
-plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles(Unweighted)' ,'Weighted Fraction of Positive Cycles'], fancybox = True)
+plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles(Unweighted)' ,'Fraction of Weighted Positive Cycles'], fancybox = True)
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)

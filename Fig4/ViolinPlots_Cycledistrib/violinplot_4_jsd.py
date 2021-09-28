@@ -6,9 +6,11 @@ import modules.metric as metric
 import matplotlib.pyplot as plt
 import matplotlib
 import seaborn
+from scipy import stats
+
 print('imported modules')
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'25', 'axes.labelsize':'25', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'20'})
 
 topofiles= [splitext(f)[0] for f in listdir("topofiles_jsd/") if isfile(join("topofiles_jsd/", f))]
 topofiles.sort()
@@ -70,29 +72,31 @@ def set_axis_style(ax, labels):
     ax.set_xticklabels(labels)
     ax.set_xlim(0.25, len(labels) + 0.75)
 
+pfljsdarr_group= np.array(pfljsdarr_group)
+nfljsdarr_group= np.array(nfljsdarr_group)
 data_matrix = [pfljsdarr_group[0],pfljsdarr_group[1] , nfljsdarr_group[0] , nfljsdarr_group[1] ]
-
+print(stats.ttest_ind(pfljsdarr_group[0], pfljsdarr_group[1]))
+print(stats.ttest_ind(nfljsdarr_group[0], nfljsdarr_group[1]))
 
 labels = ["PFL Left", "PFL Right" , "NFL Left" , "NFL Right"]
 r = 2
 fig,ax = plt.subplots()
-ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'] , linewidth = 4)
-ax.set_xticklabels(labels)
+ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'])
+ax.set_xticklabels(labels,fontsize = 25)
 a1 = np.mean(data_matrix[0])
 print(data_matrix[0])
 a2 = np.mean(data_matrix[1])
 a3 = np.mean(data_matrix[2])
 a4 = np.mean(data_matrix[3])
-plt.scatter([0,1,2,3], [a1,a2,a3,a4] , c='k' , s=65)
-#plt.title("Size 4 (Grouped by JSD)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
-plt.xlabel("(Grouped by JSD)")
-ax.set_ylabel("No. of Feedback Loops")
-ax.set_ylim([0,7])
+plt.scatter([0,1,2,3], [a1,a2,a3,a4] , c='k' )
+plt.title("Feedback Loops (Network  Size 4) (Grouped by JSD)" , c= '0.3' , fontweight = 'bold', fontsize = 25)
+
+ax.set_ylabel("Avg. Perturbation JSD" ,fontsize = 32)
 f=2*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
 
-plt.savefig("violinplot_jsd.png", transparent = True)
+plt.savefig("violinplot_jsd.png")
 
 
 

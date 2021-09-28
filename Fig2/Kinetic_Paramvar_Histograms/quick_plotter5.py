@@ -63,10 +63,10 @@ colours = ['r']
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
 
 
-plt.xlabel("Avg. Fold Change in Plasticity", fontweight="bold", c = '0.3')
+plt.xlabel("Avg. Fold Change in Plasticity\n(Dynamic)", fontweight="bold", c = '0.3')
 plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
 plt.title("Size {}".format(number), fontweight="bold", c = '0.3')
-
+plt.yticks(np.arange(0,19,3))
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)    

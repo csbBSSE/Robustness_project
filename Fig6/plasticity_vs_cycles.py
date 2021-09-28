@@ -261,21 +261,5 @@ for i in range(len(topofiles)):
     plt.savefig("diff_weight_loops_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()     
     
-    #plotting vs diff in fraction of weighted feedback loops    
-    r = 2
-    fig = plt.figure()
-   
-    plt.scatter(frac_weight_loops, plastarr , c= colorarr, s = 50)
-    plt.colorbar()   
-    corr, _ = pearsonr(frac_weight_loops, plastarr)    
-    
-    plt.xlabel("Δ Fraction of Weighted Feedback Loops")
-    plt.ylabel("Plasticity of Perturbed Network")
-    plt.title("{}  ρ = {:.3f}".format(network_name,corr))
-    f=r*np.array(plt.rcParams["figure.figsize"])
-    fig = matplotlib.pyplot.gcf()
-    fig.set_size_inches(f)         
-    
-    plt.savefig("frac_weight_loops_{}.png".format(topofiles[i]) , transparent =True)
-    plt.clf()      
+
     
