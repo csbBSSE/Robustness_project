@@ -87,8 +87,7 @@ def matrix(network_name):
         link_matrix[source][target] = -1 if temp[2] == '2' else 1
 
     return link_matrix
-
-
+  
 if __name__ == '__main__':
     import sys
     sys.path.append('../')
@@ -99,4 +98,4 @@ if __name__ == '__main__':
     graph = networkx_graph(network_name)
     cycle_stuff = cycle_info(network_name, graph)
     link_matrix = matrix(network_name)
-    a = act_eig(network_name, graph, link_matrix)
+
