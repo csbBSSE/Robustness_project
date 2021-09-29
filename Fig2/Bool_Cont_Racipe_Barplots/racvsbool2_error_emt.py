@@ -17,7 +17,7 @@ topofiles= os.listdir()
 topofiles.sort()
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'40', 'axes.labelsize':'40', 'xtick.labelsize':'15', 'ytick.labelsize':'30', 'legend.fontsize':'25'})
 
-version='bool'    ###change this as need, either cont or bool
+version='cont'    ###change this as need, either cont or bool
 
 
 def FixCase(st):
@@ -171,15 +171,10 @@ if plot_plotterdata:
     for q in range(len( final_yaxislist )):
         rac_sum+=final_yaxislist[q]
 
-    final_yaxislist=  final_yaxislist / rac_sum
-    final_errorlist=  final_errorlist / rac_sum
-
     bool_sum=0
     for q in range(len( final_ydata )):
         bool_sum += final_ydata[q]
 
-    final_ydata=  final_ydata / bool_sum
-    final_errordata = final_errordata / bool_sum
     
     fig, ax = plt.subplots(1,1)
     plt.bar(final_xaxis,np.array(final_yaxislist) , width = 0.3, color = 'r')
@@ -204,6 +199,10 @@ if plot_plotterdata:
         leg2 = mlines.Line2D([], [], color='blue',  ls='', marker = 'o',  label='Boolean', markersize = 20)
     if(version == 'bool' and network_name == 'OVOL'):
         ax.set_ylim([0,0.35])
+    if(version == 'bool' and network_name == 'EMT_RACIPE'):
+        ax.set_ylim([0,0.09])       
+    if(version == 'cont' and network_name == 'EMT_RACIPE'):
+        ax.set_ylim([0,0.065])
     plt.legend(handles=[leg1, leg2])
     r= 2
     f=r*np.array(plt.rcParams["figure.figsize"])
