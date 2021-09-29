@@ -171,15 +171,9 @@ if plot_plotterdata:
     for q in range(len( final_yaxislist )):
         rac_sum+=final_yaxislist[q]
 
-    final_yaxislist=  final_yaxislist / rac_sum
-    final_errorlist=  final_errorlist / rac_sum
-
     bool_sum=0
     for q in range(len( final_ydata )):
         bool_sum += final_ydata[q]
-
-    final_ydata=  final_ydata / bool_sum
-    final_errordata = final_errordata / bool_sum
     
     fig, ax = plt.subplots(1,1)
     plt.bar(final_xaxis,np.array(final_yaxislist) , width = 0.3, color = 'r')
