@@ -184,7 +184,7 @@ if plot_plotterdata:
     plt.errorbar(np.array(final_xaxis)+weight, final_ydata, yerr = final_errordata, fmt = 'o', markersize = 0, barsabove = True, capsize = 4, color = 'k')
     plt.xticks(final_xaxis,list_labels, rotation = 'vertical')
     jsd=jensenshannon(final_ydata,np.array(final_yaxislist),2 )
-    plt.title("{}".format(network_name) +" "+ FixCase(version) + "     " + "JSD = {}".format( "{:.4f}".format(jsd)))
+
     
     
     
@@ -201,8 +201,16 @@ if plot_plotterdata:
         ax.set_ylim([0,0.35])
     if(version == 'bool' and network_name == 'EMT_RACIPE'):
         ax.set_ylim([0,0.09])       
+        jsd = 0.3322 
     if(version == 'cont' and network_name == 'EMT_RACIPE'):
         ax.set_ylim([0,0.065])
+        jsd =0.232276
+    if(version == 'bool' and network_name == 'EMT_RACIPE2'):
+        jsd = 0.4080
+    if(version == 'cont' and network_name == 'EMT_RACIPE2'):
+        jsd = 0.2883
+    plt.title("{}".format(network_name) +" "+ FixCase(version) + "     " + "JSD = {}".format( "{:.4f}".format(jsd)))
+    jsd =  0.33
     plt.legend(handles=[leg1, leg2])
     r= 2
     f=r*np.array(plt.rcParams["figure.figsize"])

@@ -28,7 +28,7 @@ for i in range(len(topofiles)):
          pass
         
    
-    boolprob=np.loadtxt("booldata/{}_ising_probfull.txt".format(topofiles[i]))
+    boolprob=np.loadtxt("contdata/{}_ising_probfull.txt".format(topofiles[i]))  ##this is actually cont data, not boolean/ising.
     boolarr=boolprob.T[1]
     
     jsd=jensenshannon(boolarr,racarr,2)

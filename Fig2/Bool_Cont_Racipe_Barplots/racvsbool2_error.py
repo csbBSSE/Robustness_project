@@ -17,7 +17,7 @@ topofiles= os.listdir()
 topofiles.sort()
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'40', 'axes.labelsize':'40', 'xtick.labelsize':'25', 'ytick.labelsize':'30', 'legend.fontsize':'35'})
 
-version='cont'    ###change this as need, either cont or bool
+version='bool'    ###change this as need, either cont or bool
 
 
 def FixCase(st):

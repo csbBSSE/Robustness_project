@@ -19,6 +19,8 @@ import matplotlib.patches as mpatches
 colorarr = []
 col = ['r' , 'g', 'm', 'k' ,'c', 'y', 'C1' ]
 import warnings
+import copy
+ 
 warnings.filterwarnings("ignore")
 def starfunc(significance):
     if significance < 0.001:
@@ -40,6 +42,8 @@ def func(X, a , b , c):
           z[i] = a*x[i] / max(a*x[i] + y[i] , 1)
         else:
             z[i] = a*x[i]/(a*x[i] + y[i])
+    if(a<0):
+        return -10000000000000
     return b*z + z1
 
 def func_output(X, a , b , c):
@@ -91,7 +95,6 @@ for i in range(len(topofiles)):
 
     lm = metric.matrix(network_name)
 
-    act_eig = metric.act_eig(network_name, g, lm)
 
     #structural
         #perturbation JSD
@@ -124,24 +127,24 @@ for i in range(len(topofiles)):
         fchg = -100
 
     #kinetic robustness
-        #JSD b/w RACIPE and boolean
+        #JSD b/w RACIPE and cont
     try:
-        ising = open("raw_data/{}_ising_probfull.txt".format(network_name), 'r').readlines()
+        cont = open("raw_data/{}_ising_probfull.txt".format(network_name), 'r').readlines()    ## note: ising_probfull is actually contdata, not ising
         flag = 1
         racipe = np.loadtxt("raw_data/{}_racipe_probfull_processed.txt".format(network_name)).T
 
-        isingdict = {}
+        contdict = {}
         for i in range(2 ** lm.shape[0]):
-            isingdict[i] = 0
-        for j in ising:
+            contdict[i] = 0
+        for j in cont:
             if j == "":
                 continue
             i = j.split(" ")
-            isingdict[int(i[0], 2)] = float(i[1])
-        isingarr = np.array([isingdict[i] for i in range(2 ** lm.shape[0])])
-        # print(isingarr)
+            contdict[int(i[0], 2)] = float(i[1])
+        contarr = np.array([contdict[i] for i in range(2 ** lm.shape[0])])
+        # print(contarr)
         # print(racipe)
-        kjsd = jensenshannon(racipe, isingarr, 2)
+        kjsd = jensenshannon(racipe, contarr, 2)
     except:
         kjsd = -100
 
@@ -162,14 +165,26 @@ print("dictionaries built")
 
 corrarr = []
 corrarrpjsd  =[]
-
-
+corrarrpplast =[]
+corrarrdjsd  =[]
+corrarrdplast =[]
+weightarrpjsd  =[]
+weightarrpplast =[]
+weightarrdjsd  =[]
+weightarrdplast =[]
 
 def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     global corrarr
     global corrarrpjsd
+    global corrarrpplast
+    global corrarrdjsd
+    global corrarrdplast
+    global weightarrpjsd
+    global weightarrdjsd
+    global weightarrpplast
+    global weightarrdplast
     
-    
+    weight = 0
     
     if(x_label == "Fraction of Weighted Positive Cycles"):
         temp1 = []
@@ -185,6 +200,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
             popt, pcov = curve_fit(func, (x_arr1,x_arr2), y_arr, p0)
             z_arr = func_output( (x_arr1,x_arr2) , popt[0], popt[1] , popt[2])
             x_arr = np.array(z_arr)   
+            weight = popt[0]
         except:
             return None
             
@@ -227,13 +243,35 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
         pcorr, significance = pearsonr(x_arr,y_arr)
     except:
         print(x_arr, y_arr, x_label, y_label, dir, name, size)
-          
-    if (size == -1):
+    
+    #y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]    
+    if (size == -1 and x_label!=  "No. of FLs" ):
         corrarr.append(np.round(pcorr*10000)/10000)
         
-    if (y_label == "Avg. Perturbation JSD"):
-        print(size)
-        corrarrpjsd.append(np.round(pcorr*10000)/10000)        
+    if (y_label == "Avg. Fold Change in Plasticity\n(Structural)" and x_label!=  "No. of FLs"):
+        corrarrpplast.append(np.round(pcorr*10000)/10000)        
+        if(x_label == "Fraction of Weighted Positive Cycles"):
+            weightarrpplast.append(weight)
+ 
+    if (y_label == "Avg. Perturbation JSD" and x_label!=  "No. of FLs" ):
+ 
+        corrarrpjsd.append(np.round(pcorr*10000)/10000)  
+        if(x_label == "Fraction of Weighted Positive Cycles"):
+            weightarrpjsd.append(weight)
+            
+    if (y_label == "RACIPE vs Cont. (JSD)" and x_label!=  "No. of FLs"):
+
+        corrarrdjsd.append(np.round(pcorr*10000)/10000)  
+        if(x_label == "Fraction of Weighted Positive Cycles"):
+            weightarrdjsd.append(weight)       
+    if (y_label == "Avg. Fold Change in Plasticity\n(Dynamic)" and x_label!=  "No. of FLs"):
+
+        corrarrdplast.append(np.round(pcorr*10000)/10000)      
+        if(x_label == "Fraction of Weighted Positive Cycles"):
+            weightarrdplast.append(weight)
+        
+
+     
         
     if(size!= 15):
         colarr = []
@@ -300,10 +338,10 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     # print(x_arr, y_arr)
                     plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
 
-x_label_arr = ["No. of PFLs", "No. of NFLs", "Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
+x_label_arr = ["No. of PFLs", "No. of NFLs", "No. of FLs" ,"Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
 y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
 dir_arr = ["pjsd", "fchg", "djsd", "dplast"]
-met_arr = ["npos", "nneg", "fracpos" ,"wfracloops"]
+met_arr = ["npos", "nneg", "totfl", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
 
 print("corrarr")
@@ -314,7 +352,7 @@ print(corrarrpjsd)
 
 
 x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
-y_labels = ["pJSD" , "fchg" , "dJSD" , "dplast"]
+y_labels = ["pJSD" , "pPlast" , "dJSD" , "dplast"]
 
 data = corrarr
 
@@ -336,8 +374,79 @@ plt.clf()
 
 import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 
+def lineplotter(data,y_label):
+    x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
+    l1 = len(data)//4 -1
+    if(y_label == "Avg. Fold Change in Plasticity\n(Structural)"):
+        l1 = 2
+    for j in range(4,4+l1):
+        x_labels.append("{}".format(j))
+    x_labels.append("All")
+    
+    r = 2
+    fig, ax = plt.subplots()   
+    sns.mpl_palette("jet", 6)
+    data = np.abs(np.array(data))
+    data = data.reshape((l1+1,4))
+    
+    f=r*np.array(plt.rcParams["figure.figsize"])
+    fig = matplotlib.pyplot.gcf() 
+    fig.set_size_inches(f)
+
+    data1 = data.T
+    
+    x1 = []
+    for j in range(4,4+l1):
+        x1.append(j)
+    
+    plt.plot(x1, data1[0][:-1] ,  marker='o' , linewidth = 4)
+    plt.plot(x1, data1[1][:-1] ,  marker="o", linewidth = 4)
+    plt.plot(x1, data1[2][:-1] , marker = "o", linewidth = 4)
+    plt.plot(x1, data1[3][:-1] , marker = "o", linewidth = 4)
+    arrcol =  ['C0','C1','C2','C3']
+    for j in range(4):
+        plt.plot( 4+l1, data1[j][-1] , marker = 'X', markersize = 20, c = arrcol[j] ,linestyle = 'None' )
+    x2 = copy.deepcopy(x1)
+    #x2.insert(0,"0")
+    x2.append("All")
+    for j in range(len(x2)):
+        x2[j] = str(x2[j])
+    print(x2)
+    ax.set_xticklabels(x2)
+    plt.xlabel("Random Network Size" , c='0.3', fontweight = 'bold')
+    plt.ylabel(y_label)
+    plt.legend(['Number of Positive Cycles' , 'Number of Negative Cycles', 'Fraction of Positive Cycles(Unweighted)' ,'Fraction of Weighted Positive Cycles'], fancybox = True)
+    f=r*np.array(plt.rcParams["figure.figsize"])
+    fig = matplotlib.pyplot.gcf()
+    fig.set_size_inches(f)
+    plt.tight_layout()
+    plt.ylim([-0.03,1.1])
+    if(y_label == "Avg. Fold Change in Plasticity\n(Dynamic)"):
+         plt.ylim([-0.03,1.25])
+
+    plt.savefig("lineplot_{}.png".format(y_label), transparent = True)
+    plt.clf()
+    
+#y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]   
+    
+lineplotter(corrarrpjsd,"Avg. Perturbation JSD")
+lineplotter(corrarrpplast,"Avg. Fold Change in Plasticity\n(Structural)")
+lineplotter(corrarrdjsd,"RACIPE vs Cont. (JSD)")
+lineplotter(corrarrdplast,"Avg. Fold Change in Plasticity\n(Dynamic)")
+
+np.savetxt("weightpjsd.txt" , weightarrpjsd , fmt='%1.3f')
+np.savetxt("weightpplast.txt" , weightarrpplast , fmt='%1.3f')
+np.savetxt("weightdjsd.txt" , weightarrdjsd, fmt='%1.3f')
+np.savetxt("weightdplast.txt" , weightarrdplast, fmt='%1.3f')
+
+'''  
+
+
+
+    
 x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
 y_labels = ["4" , "5","6", "7" , "8" , "9" , "10" , "All"]
 
@@ -376,3 +485,4 @@ plt.ylim([-0.03,1.1])
 
 plt.savefig("lineplot.png", transparent = True)
 plt.clf()
+'''
