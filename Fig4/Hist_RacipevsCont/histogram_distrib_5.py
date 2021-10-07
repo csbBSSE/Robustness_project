@@ -47,12 +47,12 @@ n_bins  = 20
 r = 2
 matplotlib.rcParams.update({'font.size': 13*r})  
 fig,ax = plt.subplots()
-valarr = jsdarr
-valarr.append(0.1396)
+#valarr = jsdarr
+#valarr.append(0.1396)
 names = ["OCT4"]
 colours = ['r']
-coords = [0.1396]
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+#coords = [0.1396]
+histarrows.histogram(ax, jsdarr, coords, names, colours, n_bins)   
 
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
 plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
