@@ -200,8 +200,8 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
         x_arr2 = np.array(temp2)
         
         
-        for j in range(0,50):
-            a = 0.01 + j*0.1
+        for j in range(0,500):
+            a = 0.01 + j*0.01
             xcorrarr.append(a)
             z_arr = func_output( (x_arr1,x_arr2) , a , 1, 1)
             try:
@@ -217,7 +217,11 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
            plt.title("All sizes")
     else:
            plt.title("Size {}".format(size) )
-  
+    f = open("{}_Size{}.txt".format(y_label,size) , 'w')
+    for j in range(len(xcorrarr)):
+        f.write("{:.6f} {:.6f}\n".format(xcorrarr[j] , correlationarr[j]))
+    f.close()
+    
     #plt.xticks(xcorrarr)
     plt.xlabel("Weight for PFLs")
     ytestlabel = 0

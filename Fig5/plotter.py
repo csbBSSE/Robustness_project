@@ -164,6 +164,7 @@ print("dictionaries built")
 
 
 corrarr = []
+sigarr = []
 corrarrpjsd  =[]
 corrarrpplast =[]
 corrarrdjsd  =[]
@@ -247,7 +248,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     #y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]    
     if (size == -1 and x_label!=  "No. of FLs" ):
         corrarr.append(np.round(pcorr*10000)/10000)
-        
+        sigarr.append(significance)
     if (y_label == "Avg. Fold Change in Plasticity\n(Structural)" and x_label!=  "No. of FLs"):
         corrarrpplast.append(np.round(pcorr*10000)/10000)        
         if(x_label == "Fraction of Weighted Positive Cycles"):
@@ -271,7 +272,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
             weightarrdplast.append(weight)
         
 
-     
+  
         
     if(size!= 15):
         colarr = []
@@ -354,14 +355,28 @@ print(corrarrpjsd)
 x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
 y_labels = ["pJSD" , "pPlast" , "dJSD" , "dplast"]
 
-data = corrarr
+data1 = corrarr
 
-data = np.abs(np.array(data))
-data = data.reshape((4,4))
+data1 = np.abs(np.array(data1))
+data1 = data1.reshape((4,4))
+
+
+data = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+
+count = 0
+for j in range(4):
+    for k in range(4):
+        if(data1[j][k] <0.01):
+            data[j][k]= "{:.3f}{}".format(data1[j][k], starfunc(sigarr[count]) )
+        else:
+            data[j][k]= "{:.2f}{}".format(data1[j][k], starfunc(sigarr[count]) )
+        count+=1
+
+
 
 r = 2
 fig, ax = plt.subplots()   
-heatmap = sns.heatmap(data , xticklabels = x_labels , yticklabels = y_labels, annot = True)  
+heatmap = sns.heatmap(data1 , xticklabels = x_labels , yticklabels = y_labels, annot = data ,fmt='')
 heatmap.set_xticklabels(heatmap.get_xmajorticklabels(), fontsize = 30)
 heatmap.set_yticklabels(heatmap.get_ymajorticklabels(), fontsize = 30)
 f=r*np.array(plt.rcParams["figure.figsize"])

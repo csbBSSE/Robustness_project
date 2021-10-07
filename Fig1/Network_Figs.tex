@@ -1,0 +1,212 @@
+\documentclass[12pt]{report}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{fullpage}
+\usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\usepackage{xcolor}
+\colorlet{col1}{rgb:red,90;green,230;blue,129}
+\colorlet{col2}{rgb:red,115;green,101;blue,230}
+\colorlet{col3}{rgb:red,164;green,230;blue,78}
+\colorlet{col4}{rgb:red,230;green,33;blue,33} 
+\colorlet{col5}{rgb:red,230;green,207;blue,67}
+
+
+\colorlet{c1}{col1!60}
+\colorlet{c2}{col2!60}
+\colorlet{c3}{green!60}
+\colorlet{c4}{red}
+\colorlet{c5}{yellow!60}
+\colorlet{c6}{orange!70}
+\colorlet{c7}{brown!70}
+\colorlet{c8}{black!60}
+\begin{document}
+
+
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[-|, >=stealth', auto, semithick, node distance=3cm,line width = 1.5pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c1]    (snail)                     {\textbf{SNAIL}};
+\node[state, fill=c2]    (miR200) [below left of =snail] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below right of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (OVOL) [below left of=ZEB] {\textbf{OVOL}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(snail) [-|] edge (miR200)
+(snail) [->]edge  (ZEB)
+(ZEB) [-|]edge[bend right=17]      (miR200)
+(ZEB) edge[loop right] (ZEB)
+(OVOL) [-|]edge [bend right] (ZEB)
+(ZEB) [-|] edge  (OVOL)
+(OVOL) [-|] edge (miR200)
+(OVOL) [-|]edge[swap, out = 250, in = 290, distance = 30]      (OVOL)
+(miR200) [-|]edge [bend right=17] (ZEB);
+\end{tikzpicture}
+
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[-|, >=stealth', auto, semithick, node distance=3cm,line width = 1.5pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c1]    (snail)                     {\textbf{SNAIL}};
+\node[state, fill=c2]    (miR200) [below left of =snail] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below right of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (OVOL) [below left of=ZEB] {\textbf{OVOL}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(snail) [-|] edge (miR200)
+(snail) [->]edge  (ZEB)
+(ZEB) [-|]edge[bend right=17]      (miR200)
+(ZEB) edge[loop right] (ZEB)
+(OVOL) [-|]edge [bend right] (ZEB)
+(ZEB) [-|] edge  (OVOL)
+(OVOL) [-|] edge (miR200)
+(miR200) [-|]edge [bend right=17] (ZEB);
+\end{tikzpicture}
+
+\end{figure}\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[-|, >=stealth', auto, semithick, node distance=3cm,line width = 1.5pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c1]    (snail)                     {\textbf{SNAIL}};
+\node[state, fill=c2]    (miR200) [below left of =snail] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below right of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (OVOL) [below left of=ZEB] {\textbf{GRHL2}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(snail) [-|] edge (miR200)
+(snail) [->]edge  (ZEB)
+(ZEB) [-|]edge[bend right=17]      (miR200)
+(ZEB) edge[loop right] (ZEB)
+(OVOL) [-|]edge [bend right] (ZEB)
+(ZEB) [-|] edge  (OVOL)
+(miR200) [-|]edge [bend right=17] (ZEB);
+\end{tikzpicture}
+
+\end{figure}\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[-|, >=stealth', auto, semithick, node distance=3cm,line width = 1.5pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c1]    (snail)                     {\textbf{SNAIL}};
+\node[state, fill=c2]    (miR200) [below left of =snail] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below right of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (OVOL) [below left of=ZEB] {\textbf{GRHL2}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(snail) [-|] edge (miR200)
+(snail) [->]edge  (ZEB)
+(ZEB) [-|]edge[bend right=17]      (miR200)
+(ZEB) edge[loop right] (ZEB)
+(OVOL) [-|]edge [bend right] (ZEB)
+(ZEB) [-|] edge  (OVOL)
+(OVOL) edge[loop left]      (OVOL)
+(miR200) [-|]edge [bend right=17] (ZEB);
+\end{tikzpicture}
+
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm,line width = 1.25pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c1]    (snail)                     {\textbf{SNAIL}};
+\node[state, fill=c2]    (miR200) [below left of =snail] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below right of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (miR145) [below of=ZEB] {\Large{$\boldsymbol{\mu_{145}}$}};
+\node[state, fill=c3] (OCT4) [below of = miR200] {\textbf{OCT4}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(snail) [-|] edge (miR200)
+(snail) [->]edge  (ZEB)
+(ZEB) [-|]edge[bend right=17]      (miR200)
+(ZEB) edge[loop right] (ZEB)
+(miR145) [-|]edge[bend right=17] (ZEB)
+(ZEB) [-|] edge [bend right=17] (miR145)
+(miR145) [-|] edge[bend right=17] (OCT4)
+(OCT4) [-|] edge [bend right=17] (miR145)
+(OCT4) [->]edge (miR200)
+(miR200) [-|]edge [bend right=17] (ZEB);
+\end{tikzpicture}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm,line width = 1.25pt]
+\tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=0.9]
+\node[state, fill=c8] (Iext) {\Large{$\boldsymbol{I_{ext}}$}};
+\node[state, fill=c1]    (snail) [below right of = Iext]                    {\textbf{SNAIL}};
+\node[state, fill=c7] (miR34) [below left of = Iext] {\Large{$\boldsymbol{\mu_{34}}$}};
+\node[state, fill=c2]    (miR200) [below of = miR34] {\Large{$\boldsymbol{\mu_{200}}$}};
+\node[state, fill=c4]    (ZEB)[below of=snail]   {\textbf{ZEB}};
+\node[state, fill=c5] (KEAP1) [below of=miR200] {\textbf{KEAP1}};
+\node[state, fill=c6] (Ecad) [below of=ZEB] {\textbf{E-cad}};
+\node[state, fill=c3] (NRF2) [below left of = Ecad] {\textbf{NRF2}};
+\draw[
+    >=latex,
+%   every node/.style={above,midway},% either
+    auto=right,                      % or
+    loop above/.style={out=75,in=105,loop},
+    every loop,
+    ]
+(Iext) [->] edge (snail)    
+(snail) [-|]edge[swap, out = 10, in = 50, distance = 30]      (snail)
+(snail) [-|] edge[bend right=17]  (miR34)
+(miR34) [-|] edge[bend right=17]  (snail)
+(snail) [->]edge  (ZEB)
+(snail) [-|] edge (miR200)
+(ZEB) [-|] edge (miR34)
+(ZEB) [-|]edge[bend left=17]      (miR200)
+(miR200) [-|]edge [bend left=17] (ZEB)
+(ZEB) [->] edge [loop right] (ZEB)
+(miR200) [-|] edge (KEAP1)
+(ZEB) [-|] edge[bend right=17]  (Ecad)
+(Ecad) [-|] edge[bend right=17]  (ZEB)
+(KEAP1) [-|] edge (NRF2)
+(Ecad) [-|] edge (NRF2)
+(NRF2) [-|] edge[bend right=70]  (snail);
+\end{tikzpicture}
+\end{figure}
+
+\end{document}
