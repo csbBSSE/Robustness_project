@@ -203,7 +203,7 @@ if plot_plotterdata:
         ax.set_ylim([0,0.09])       
         jsd = 0.3322 
     if(version == 'cont' and network_name == 'EMT_RACIPE'):
-        ax.set_ylim([0,0.065])
+        ax.set_ylim([0,0.08])
         jsd =0.232276
     if(version == 'bool' and network_name == 'EMT_RACIPE2'):
         jsd = 0.4080

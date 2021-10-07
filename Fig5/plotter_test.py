@@ -73,7 +73,7 @@ def topofiles_size(topofiles, size):
             topo_size.append(i)
     return topo_size
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'30', 'axes.labelsize':'10', 'xtick.labelsize':'15', 'ytick.labelsize':'15', 'legend.fontsize':'25'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'30', 'axes.labelsize':'30', 'xtick.labelsize':'25', 'ytick.labelsize':'25', 'legend.fontsize':'25'})
 
 topofiles= [splitext(f)[0] for f in listdir("topofiles/") if isfile(join("topofiles/", f))]
 topofiles.sort()
@@ -211,10 +211,32 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
             correlationarr.append(pcorr)
     fig, ax = plt.subplots()    
     print(correlationarr)
-    print("did it work")
+    xcorrarr = np.abs(np.array(xcorrarr))
     plt.scatter(xcorrarr, correlationarr)
+    if(size == -1):
+           plt.title("All sizes")
+    else:
+           plt.title("Size {}".format(size) )
+  
     #plt.xticks(xcorrarr)
+    plt.xlabel("Weight for PFLs")
+    ytestlabel = 0
+    y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
     
+    if(y_label == "Avg. Perturbation JSD"):
+        ytestlabel = "pJSD"
+    if(y_label == "Avg. Fold Change in Plasticity\n(Structural)"):
+        ytestlabel = "pPlast"
+    if(y_label == "RACIPE vs Cont. (JSD)"):
+        ytestlabel = "dJSD"        
+    if(y_label == "Avg. Fold Change in Plasticity\n(Dynamic)"):
+        ytestlabel = "dPlast"    
+    
+    plt.ylabel("Correlation with {}".format(ytestlabel))
+    r = 2
+    f=r*np.array(plt.rcParams["figure.figsize"])
+    fig = matplotlib.pyplot.gcf()
+    fig.set_size_inches(f)
     plt.tight_layout()
     
     plt.savefig("testing_{}_{}.png".format(y_label,size))
@@ -367,7 +389,7 @@ print(corrarr)
 print("corrarrpjsd")
 print(corrarrpjsd)
 
-
+exit()
 x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
 y_labels = ["pJSD" , "pPlast" , "dJSD" , "dplast"]
 
