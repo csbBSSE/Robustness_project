@@ -45,7 +45,7 @@ constant_node_count 0
 """
 
 tottime = time.time()
-version = 'cont' ###change this to cont or bool as needed
+version = 'bool' ###change this to cont or bool as needed
 
 for i in range(len(topofiles)):
     curnetwork = open("curnetwork.txt", 'w')

@@ -33,7 +33,7 @@ for i in range(len(topofiles)):
          continue
          pass
     
-    boolprob=np.loadtxt("booldata/{}_ising_probfull.txt".format(topofiles[i]))
+    boolprob=np.loadtxt("contdata/{}_ising_probfull.txt".format(topofiles[i]))   ##this is actually cont data. 
     boolarr=boolprob.T[1]
     jsd=jensenshannon(boolarr,racarr,2)
     jsdarr.append(jsd)

@@ -22,7 +22,7 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join
 topofiles.sort()
 print(topofiles)
 
-version='bool' # bool / cont
+version='cont' # bool / cont
 Version = version
 
 def FixCase(st):

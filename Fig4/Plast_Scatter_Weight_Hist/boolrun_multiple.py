@@ -88,7 +88,7 @@ corrarr1=[]
 corrarr2=[]
 corrarr3=[]
 corrarr4=[]
-
+corrarr5=[]
 for i in range(len(topofiles)):
 
     arr1 = []
@@ -184,7 +184,7 @@ for i in range(len(topofiles)):
     arr1 = np.array(arr1)
     arr2 = np.array(arr2)
     arr3 = np.array(arr3)
-    
+    save = 0
     network_name = topofiles[i]
     r = 2
     fig,ax = plt.subplots()  
@@ -198,7 +198,7 @@ for i in range(len(topofiles)):
     corrarr1.append(pcorr)  
     textstr = r'$\mathrm{ρ}=%.3f$' % (pcorr, )
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-
+    save = pcorr
     ax.text(0.10, 0.95, textstr + starfunc(significance), transform=ax.transAxes, fontsize=35,
         verticalalignment='top', bbox=props)
         
@@ -259,7 +259,34 @@ for i in range(len(topofiles)):
     
     
     ######
+ ##################
+    fig,ax = plt.subplots()  
+    pcorr, significance = pearsonr(arr1 + arr2 , jsd_data)    
+    seaborn.regplot(arr1 + arr2, jsd_data , line_kws = {"color": 'b'} )  
+    ax.lines.pop(0)    
+    ax.spines['top'].set_visible(False)
+    plt.xlabel("Δ FLs",fontweight="bold" , c='0.3')
+    plt.ylabel("Plasticity",fontweight="bold" , c='0.3')   
+    plt.title("{}\nPerturbations".format(network_name),fontweight="bold" , c='0.3', x = 0.65, y  = 0.9)
+    textstr = r'$\mathrm{ρ}=%.3f$' % (pcorr, )
+    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
+    ax.text(0.10, 0.95, textstr + starfunc(significance), transform=ax.transAxes, fontsize=35,
+        verticalalignment='top', bbox=props)
+        
+    f=r*np.array(plt.rcParams["figure.figsize"])
+    fig = matplotlib.pyplot.gcf()
+    fig.set_size_inches(f)    
+    
+    plt.tight_layout()
+    plt.savefig("img/{}_plast_tot.png".format(topofiles[i]), transparent = True)   
+    plt.clf()
+    
+    
+    ######    
+    
+    
+    flag = 0
     r = 2
     fig = plt.figure()
     
@@ -267,13 +294,13 @@ for i in range(len(topofiles)):
     y_arr = np.array(jsd_data)
     x_arr1 = np.array(arr1)
     x_arr2 = np.array(arr2)  
-    z_arr = arr1 - arr2
+    z_arr = arr1 
     try:
         popt, pcov = curve_fit(func_delta, (x_arr1,x_arr2), y_arr, p0)
         z_arr = func_delta_output( (x_arr1,x_arr2) , popt[0], popt[1] , popt[2])
         z_arr = np.array(z_arr)      
     except:
-
+        flag = 1
         pass
         
         
@@ -324,11 +351,13 @@ for i in range(len(topofiles)):
     plt.savefig("img/{}_plast_cycle_sum.png".format(topofiles[i]), transparent = True)   
     plt.clf()
     
-    if(pcorr1>0):
+    if(pcorr1 > 0 and flag == 0):
+    
         corrarr3.append(pcorr)
+    
         corrarr4.append(pcorr1)
 
-    
+        corrarr5.append(save)
 
 
 
@@ -358,7 +387,34 @@ plt.clf()
 
 fig, ax = plt.subplots()   
 r = 2
+###################
+
+fig, ax = plt.subplots()   
+r = 2
     
+
+ax.scatter(corrarr5,corrarr4)
+
+plt.xlabel("ρ (Plasticity vs Δ PFLs)",fontweight="bold" , c='0.3')
+plt.ylabel("ρ (Plasticity vs Δ SWFLs)",fontweight="bold" , c='0.3')   
+f=r*np.array(plt.rcParams["figure.figsize"])
+fig = matplotlib.pyplot.gcf()
+fig.set_size_inches(f)
+
+lims = [
+    np.min([ax.get_xlim(), ax.get_ylim()]),  # min of both axes
+    np.max([ax.get_xlim(), ax.get_ylim()]),  # max of both axes
+]
+
+# now plot both limits against eachother
+ax.plot(lims, lims, 'k-', zorder=0 , linewidth = 3)
+plt.tight_layout()
+plt.savefig("img/weightedorno_cyclesum_pos.png", transparent = True)     
+plt.clf()
+
+fig, ax = plt.subplots()   
+r = 2
+        
 ############
 ax.scatter(corrarr1,corrarr2)
 
