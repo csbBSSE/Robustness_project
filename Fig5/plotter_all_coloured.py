@@ -174,7 +174,7 @@ weightarrpplast =[]
 weightarrdjsd  =[]
 weightarrdplast =[]
 
-def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
+def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size, sizearr):
     global corrarr
     global corrarrpjsd
     global corrarrpplast
@@ -217,8 +217,9 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     fig, ax = plt.subplots()
 
     
-    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'} )
-    
+    sns.regplot(x_arr,y_arr,line_kws = {"color": 'b'} , scatter_kws ={"alpha" : 0}  )
+    plt.scatter(x_arr,y_arr, c= sizearr)
+    plt.colorbar()
     test = []
     
 
@@ -230,10 +231,10 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     lim2 = max(x_arr) + 0.05*(max(x_arr) - min(x_arr))
     ax.set(xlim=(lim1 , lim2))
 
-    f=r*np.array(plt.rcParams["figure.figsize"])
-    fig = matplotlib.pyplot.gcf()
-    fig.set_size_inches(f)
-
+    
+    
+    pcorr = 0
+    significance = 0 
     title = ""
     if (size == -1):
         title = "Random Networks (All Sizes)"
@@ -244,6 +245,12 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
         pcorr, significance = pearsonr(x_arr,y_arr)
     except:
         print(x_arr, y_arr, x_label, y_label, dir, name, size)
+        
+    f=r*np.array(plt.rcParams["figure.figsize"])
+    fig = matplotlib.pyplot.gcf()
+    fig.set_size_inches(f)
+     
+    ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)], prop={'size': 35})   
     
     #y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]    
     if (size == -1 and x_label!=  "No. of FLs" ):
@@ -273,7 +280,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
         
 
   
-        
+    '''
     if(size!= 15):
         colarr = []
         count = 0
@@ -293,7 +300,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
            count+=1
         for k in range(len(x_arr1)):
             plt.plot( x_arr1[k], y_arr1[k] , c =  colarr[k] , marker = 'X',  markersize = 20 , linestyle = 'None')    
-            
+    '''        
     # print(pcorr)
     #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3
     #leg1 = ax.legend(handles = test, prop={'size': 25})
@@ -301,20 +308,21 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     #leg2 = ax.legend(handles = [Line2D([0], [0], marker='o', color='w', label="ρ = {:.3f}{}".format(pcorr, starfunc(significance)), markerfacecolor='w', markersize=5)])
     #ax.add_artist(leg1)
 
-    ax.legend(handles = test, prop={'size': 25})
+    #ax.legend(handles = test, prop={'size': 25})
     plt.tight_layout()
-    plt.savefig("plots/{}/{}.png".format(dir, name), transparent = True)
+    plt.savefig("plots/{}/{}_coloredsize.png".format(dir, name), transparent = True)
     # print("{}/{}.jpg".format(dir, name))
     plt.close()
 
 def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr):
-    size_arr = [4, 5, 6, 7, 8, 9, 10 , -1]
+    size_arr = [-1]
     for size in size_arr:
         topofiles = topofiles_size(topofiles_all, size)
 
         print("Size:", size)
         for emp_index in range(len(y_label_arr)):
             for met_index in range(len(x_label_arr)):
+                    topo_sizearr = []
                     topofile_input = []
                     x_arr = []
                     y_arr = []
@@ -325,11 +333,16 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                                 if np.isfinite(db_emp[i][emp_index]) and np.isfinite(db_met[i][met_index]):
                                     x_arr.append(db_met[i][met_index])
                                     y_arr.append(db_emp[i][emp_index])
+                                    lm = metric.matrix(i).shape
+                                    topo_sizearr.append(lm[0])
                                     topofile_input.append(i)
                             else:
                                 if np.isfinite(db_emp[i][emp_index]) and (np.isfinite(db_met[i][met_index][0] and np.isfinite(db_met[i][met_index][1]))):
                                     x_arr.append(db_met[i][met_index])
-                                    y_arr.append(db_emp[i][emp_index])      
+                                    y_arr.append(db_emp[i][emp_index])    
+                                    lm = metric.matrix(i).shape
+                                    topo_sizearr.append(lm[0])
+                                    
                                     topofile_input.append(i)                                        
                     size_str = "all" if size == -1 else str(size)
                     name = "{}_{}_{}".format(dir_arr[emp_index], met_arr[met_index], size_str)
@@ -337,7 +350,7 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     topofile_input.sort()
                     #print("input", topofile_input[0])
                     # print(x_arr, y_arr)
-                    plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
+                    plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size , topo_sizearr)                   
 
 x_label_arr = ["No. of PFLs", "No. of NFLs", "No. of FLs" ,"Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
 y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
@@ -350,6 +363,8 @@ print(corrarr)
 
 print("corrarrpjsd")
 print(corrarrpjsd)
+
+exit()
 
 
 x_labels = ["PFL", "NFL", "FPC" , "FWPC"]
@@ -366,7 +381,7 @@ data = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 count = 0
 for j in range(4):
     for k in range(4):
-        if(np.abs(data1[j][k]) <0.01):
+        if(data1[j][k] <0.01):
             data[j][k]= "{:.3f}{}".format(data1[j][k], starfunc(sigarr[count]) )
         else:
             data[j][k]= "{:.2f}{}".format(data1[j][k], starfunc(sigarr[count]) )
@@ -376,8 +391,7 @@ for j in range(4):
 
 r = 2
 fig, ax = plt.subplots()   
-cmap1 = sns.diverging_palette(0,255,sep=77, as_cmap=True)
-heatmap = sns.heatmap(data1 , xticklabels = x_labels , yticklabels = y_labels, annot = data ,fmt='' , cmap = cmap1)
+heatmap = sns.heatmap(data1 , xticklabels = x_labels , yticklabels = y_labels, annot = data ,fmt='')
 heatmap.set_xticklabels(heatmap.get_xmajorticklabels(), fontsize = 30)
 heatmap.set_yticklabels(heatmap.get_ymajorticklabels(), fontsize = 30)
 f=r*np.array(plt.rcParams["figure.figsize"])
