@@ -21,6 +21,16 @@ n_bins = 20
 
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(join("topofiles4/", f))]
 topofiles.sort()
+def rankcalc(coords, valarr, names):
+    n = len(valarr)
+    for i in range(len(coords)):
+        perc = 0
+        for j in range(len(valarr)):
+            if(valarr[j]>coords[i]):
+                perc+=1
+        perc = (np.round((perc/n)*1000))/1000
+        print(names[i], perc)
+        
 avgarr=[]
 stdarr=[]
 
@@ -38,7 +48,8 @@ valarr = avgarr
 names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
 coords = [0.21342106249999998, 0.201548, 0.228, 0.215358625]   
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+error = [[0.83,	0.04],	[0.93,	0.03]	,[0.65	,0.05]	,[0.79,	0.04]]
+histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("Average Perturbation JSD", fontweight="bold", c = '0.3')
 plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
@@ -54,7 +65,7 @@ plt.tight_layout()
 
 plt.savefig("jsdavg{}hist.png".format(number), transparent = True)
 plt.clf()
-
+rankcalc(coords, valarr, names)
 
 
 

@@ -12,12 +12,20 @@ import histarrows as histarrows
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(join("topofiles4/", f))]
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'28', 'ytick.labelsize':'30', 'legend.fontsize':'27'})
 
 
 jsdarr=[]
 coords = []
-
+def rankcalc(coords, valarr, names):
+    n = len(valarr)
+    for i in range(len(coords)):
+        perc = 0
+        for j in range(len(valarr)):
+            if(valarr[j]>coords[i]):
+                perc+=1
+        perc = (np.round((perc/n)*1000))/1000
+        print(names[i], perc)
 
 for i in range(len(topofiles)):
     
@@ -46,7 +54,8 @@ fig,ax = plt.subplots()
 valarr = jsdarr
 names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+error  = [[0.92,	0.01],	[0.72	,0.03],[0.87	,0.01],	[0.96,	0.02]]
+histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
 plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
@@ -59,7 +68,7 @@ fig.set_size_inches(f)
 plt.tight_layout()       
 plt.savefig("racboolhist_size4.png", transparent = True)
 
-
+rankcalc(coords, valarr, names)
   
     
     

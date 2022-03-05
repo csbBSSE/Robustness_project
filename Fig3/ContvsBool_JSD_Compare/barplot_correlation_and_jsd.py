@@ -67,7 +67,7 @@ xarr4=['GRHL2','GRHL2wa', 'NRF2', 'OCT4', 'OVOL']
 yarr41=[0.2666,
 0.3314,
 0.4508,
-0.2803,
+0.4706,
 0.3527  ,
 ]
 yarr42=[
@@ -90,8 +90,8 @@ plt.ylabel("JSD from RACIPE",  fontweight="bold" , c='0.3')
 #plt.xlabel("Networks", fontweight="bold" , c='0.3')
 plt.xticks(rotation=15)
 #plt.title("Boolean vs Cont. JSD")
-legend = plt.legend(['Boolean', 'Continuous'] )
-plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
+legend = plt.legend(['Boolean', 'Continuous'] , loc='best' )
+plt.setp(legend.get_texts(), color='0.3', fontweight="bold")
 
 plt.tick_params(
     axis='x',          # changes apply to the x-axis
@@ -103,6 +103,8 @@ plt.tick_params(
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
+axes = plt.gca()
+axes.set_ylim([0,0.65])
 plt.tight_layout()
 
 plt.savefig("jsd.png" , transparent = True)
