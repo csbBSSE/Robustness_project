@@ -22,7 +22,20 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles4/") if isfile(joi
 
 topofiles.sort()
 
+
+
+
 print(topofiles)
+
+def rankcalc(coords, valarr, names):
+    n = len(valarr)
+    for i in range(len(coords)):
+        perc = 0
+        for j in range(len(valarr)):
+            if(valarr[j]>coords[i]):
+                perc+=1
+        perc = (np.round((perc/n)*1000))/1000
+        print(names[i], perc)
 
 
 plast=np.loadtxt("plastnetwork.txt")
@@ -39,7 +52,8 @@ valarr = plast
 names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
 coords = [0.770996398,0.848018925,0.782366951,0.790414021]
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+error = [[0.39	,0.04],	[0.09	,0.03]	,[0.32,	0.03]	,[0.27,	0.03]]
+histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("Avg. fold change in Plasticity", fontweight="bold" , c='0.3')
 plt.ylabel("No. of Random networks" , fontweight="bold" , c='0.3')
@@ -48,13 +62,14 @@ plt.ylabel("No. of Random networks" , fontweight="bold" , c='0.3')
 f=r*np.array(plt.rcParams["figure.figsize"])
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)
-ax.set_ylim([0,28])
+ax.set_ylim([0,29])
 plt.tight_layout()
 
 plt.savefig("plastfoldhist4.png", transparent = True)
 
 
 plt.clf()
+rankcalc(coords, valarr, names)
 #---------------------------------------------
 
         

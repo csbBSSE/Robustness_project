@@ -1,15 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from math import pow
 import os
-from scipy.stats import norm, zscore
-from sklearn.preprocessing import StandardScaler
-import statsmodels.api as sm
 from scipy.spatial.distance import jensenshannon
 from matplotlib import rcParams
-import pandas as pd
-from scipy.stats import pearsonr
-import os
 import time
 from os import listdir
 from os.path import isfile, join
@@ -21,6 +14,15 @@ import histarrows as histarrows
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
 
 
+def rankcalc(coords, valarr, names):
+    n = len(valarr)
+    for i in range(len(coords)):
+        perc = 0
+        for j in range(len(valarr)):
+            if(valarr[j]>coords[i]):
+                perc+=1
+        perc = (np.round((perc/n)*1000))/1000
+        print(names[i], perc)
 jsdarr=[]
 coords = []
 racarr = []
@@ -52,7 +54,8 @@ fig,ax = plt.subplots()
 names = ["OCT4"]
 colours = ['r']
 #coords = [0.1396]
-histarrows.histogram(ax, jsdarr, coords, names, colours, n_bins)   
+error = [[0.99,	0.01]]
+histarrows.histogram(ax, jsdarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
 plt.ylabel("No. of random networks" , fontweight="bold", c = '0.3')
@@ -64,7 +67,7 @@ fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)     
 plt.tight_layout()       
 plt.savefig("racboolhist_size5.png", transparent = True)
-
+rankcalc(coords, jsdarr, names)
 
     
     

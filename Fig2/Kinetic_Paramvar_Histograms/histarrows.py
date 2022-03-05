@@ -7,7 +7,7 @@ def find_nearest(array, value):
     idx = (np.abs(array - value)).argmin()
     return idx
 
-def histogram(ax, valarr, coords, names, colours, nbins):
+def histogram(ax, valarr, coords, names, colours, nbins, error,fsize):  
     plt.hist(valarr, bins = nbins)
     height, tempvals = np.histogram(valarr, bins = nbins)
     
@@ -28,7 +28,10 @@ def histogram(ax, valarr, coords, names, colours, nbins):
                 arrowprops=dict(arrowstyle="->",color = colours[i], lw = 3,
                                 connectionstyle="arc3"),
                 )
+                
     legend_ele = []
+    for i in range(num):
+        names[i] = names[i] + " [{}±{}]".format(error[i][0], error[i][1])
     for i in range(num):
         legend_ele.append(Line2D([0], [0], marker='o', color='w', label=names[i], markerfacecolor=colours[i], markersize=20))
     ax.legend(handles = legend_ele)

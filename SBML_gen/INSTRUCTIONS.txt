@@ -1,0 +1,1 @@
+Put the topofiles and idfiles of the networks whose ODE models you want in SBML format (id files can be generated using the idgen program in the Continuous_Boolean section of the repository, from the corresponding topofile) in the main directory, and just the topofiles in the topofiles directory. Then run sbml_generator.py

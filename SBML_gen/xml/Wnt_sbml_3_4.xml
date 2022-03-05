@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="2" version="3" xmlns="http://www.sbml.org/sbml/level2/version3">
+	<model name="No_3_model_4">
+		<listOfFunctionDefinitions>
+			<functionDefinition id="hillfunction">
+				<math xmlns="http://www.w3.org/1998/Math/MathML"
+					xmlns:sbml="http://www.sbml.org/sbml/level3/version2/core">
+					<lambda>
+						<bvar><ci> x </ci></bvar>
+						<bvar><ci> x0 </ci></bvar>
+						<bvar><ci> lamda </ci></bvar>
+						<bvar><ci> nx </ci></bvar>
+						<apply>
+							<plus/>
+							<ci> lamda </ci>
+							<apply>
+								<times/>
+								<apply>
+									<minus/>
+									<cn>1.0</cn>
+									<ci>lamda</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<cn>1.0</cn>
+									<apply>
+										<plus/>
+										<cn>1.0</cn>
+										<apply>
+											<power/>
+											<apply>
+												<divide/>
+												<ci>x</ci>
+												<ci>x0</ci>
+											</apply>
+											<ci>nx</ci>
+										</apply>
+									</apply>
+								</apply>
+							</apply>
+						</apply>
+					</lambda>
+				</math>
+			</functionDefinition>
+		</listOfFunctionDefinitions>
+		<listOfSpecies>
+			<species id="x0"  initialAmount="0.131294"    name="Cdh1"/>
+			<species id="x1"  initialAmount="3.286523"    name="Ctnnb1"/>
+			<species id="x2"  initialAmount="95.262842"    name="Dlx3"/>
+			<species id="x3"  initialAmount="19.954605"    name="Esrp1"/>
+			<species id="x4"  initialAmount="13.174959"    name="Grhl2"/>
+			<species id="x5"  initialAmount="112.948708"    name="Hmgn3"/>
+			<species id="x6"  initialAmount="231.694450"    name="Irf6"/>
+			<species id="x7"  initialAmount="2.920169"    name="Lef1"/>
+			<species id="x8"  initialAmount="5.636978"    name="Snai1"/>
+			<species id="x9"  initialAmount="14.080710"    name="Snai2"/>
+			<species id="x10"  initialAmount="53.470749"    name="Trp63"/>
+			<species id="x11"  initialAmount="9.193084"    name="Twist1"/>
+			<species id="x12"  initialAmount="70.736444"    name="Wnt"/>
+			<species id="x13"  initialAmount="2.867314"    name="Zeb1"/>
+		</listOfSpecies>
+		<listOfParameters>
+			<parameter id="g0"  value="605.433411"/>
+			<parameter id="g1"  value="38.532881"/>
+			<parameter id="g2"  value="83.223509"/>
+			<parameter id="g3"  value="9.374888"/>
+			<parameter id="g4"  value="19.392424"/>
+			<parameter id="g5"  value="93.128270"/>
+			<parameter id="g6"  value="77.970986"/>
+			<parameter id="g7"  value="23.105843"/>
+			<parameter id="g8"  value="50.610599"/>
+			<parameter id="g9"  value="95.251027"/>
+			<parameter id="g10"  value="51.888991"/>
+			<parameter id="g11"  value="72.236890"/>
+			<parameter id="g12"  value="64.752619"/>
+			<parameter id="g13"  value="44.728005"/>
+			<parameter id="k0"  value="0.884011"/>
+			<parameter id="k1"  value="0.294829"/>
+			<parameter id="k2"  value="0.849864"/>
+			<parameter id="k3"  value="0.336591"/>
+			<parameter id="k4"  value="0.690434"/>
+			<parameter id="k5"  value="0.824508"/>
+			<parameter id="k6"  value="0.316738"/>
+			<parameter id="k7"  value="0.449684"/>
+			<parameter id="k8"  value="0.443952"/>
+			<parameter id="k9"  value="0.655618"/>
+			<parameter id="k10"  value="0.716527"/>
+			<parameter id="k11"  value="0.190851"/>
+			<parameter id="k12"  value="0.915407"/>
+			<parameter id="k13"  value="0.155816"/>
+			<parameter id="T28"  value="1.956673"/>
+			<parameter id="T31"  value="0.988456"/>
+			<parameter id="T34"  value="2.173122"/>
+			<parameter id="T37"  value="2.964167"/>
+			<parameter id="T40"  value="13.570402"/>
+			<parameter id="T43"  value="1.435653"/>
+			<parameter id="T46"  value="164.899839"/>
+			<parameter id="T49"  value="1.075675"/>
+			<parameter id="T52"  value="0.380624"/>
+			<parameter id="T55"  value="4.643894"/>
+			<parameter id="T58"  value="2.159942"/>
+			<parameter id="T61"  value="4.305201"/>
+			<parameter id="T64"  value="15.750356"/>
+			<parameter id="T67"  value="4.703761"/>
+			<parameter id="T70"  value="22.063475"/>
+			<parameter id="T73"  value="0.326212"/>
+			<parameter id="T76"  value="3.511321"/>
+			<parameter id="T79"  value="2.026494"/>
+			<parameter id="T82"  value="17.773792"/>
+			<parameter id="T85"  value="4.575539"/>
+			<parameter id="T88"  value="1.614270"/>
+			<parameter id="T91"  value="1.345422"/>
+			<parameter id="T94"  value="7.185457"/>
+			<parameter id="T97"  value="3.324429"/>
+			<parameter id="T100"  value="4.156799"/>
+			<parameter id="T103"  value="62.673170"/>
+			<parameter id="T106"  value="68.368813"/>
+			<parameter id="T109"  value="2.188644"/>
+			<parameter id="T112"  value="34.130354"/>
+			<parameter id="T115"  value="5.632363"/>
+			<parameter id="T118"  value="2.207623"/>
+			<parameter id="T121"  value="2.909851"/>
+			<parameter id="T124"  value="3.731061"/>
+			<parameter id="T127"  value="1.893600"/>
+			<parameter id="n29"  value="1.000000"/>
+			<parameter id="n32"  value="3.000000"/>
+			<parameter id="n35"  value="2.000000"/>
+			<parameter id="n38"  value="3.000000"/>
+			<parameter id="n41"  value="5.000000"/>
+			<parameter id="n44"  value="5.000000"/>
+			<parameter id="n47"  value="5.000000"/>
+			<parameter id="n50"  value="1.000000"/>
+			<parameter id="n53"  value="1.000000"/>
+			<parameter id="n56"  value="2.000000"/>
+			<parameter id="n59"  value="2.000000"/>
+			<parameter id="n62"  value="1.000000"/>
+			<parameter id="n65"  value="5.000000"/>
+			<parameter id="n68"  value="4.000000"/>
+			<parameter id="n71"  value="2.000000"/>
+			<parameter id="n74"  value="3.000000"/>
+			<parameter id="n77"  value="1.000000"/>
+			<parameter id="n80"  value="6.000000"/>
+			<parameter id="n83"  value="2.000000"/>
+			<parameter id="n86"  value="2.000000"/>
+			<parameter id="n89"  value="2.000000"/>
+			<parameter id="n92"  value="5.000000"/>
+			<parameter id="n95"  value="3.000000"/>
+			<parameter id="n98"  value="3.000000"/>
+			<parameter id="n101"  value="6.000000"/>
+			<parameter id="n104"  value="5.000000"/>
+			<parameter id="n107"  value="6.000000"/>
+			<parameter id="n110"  value="1.000000"/>
+			<parameter id="n113"  value="3.000000"/>
+			<parameter id="n116"  value="5.000000"/>
+			<parameter id="n119"  value="1.000000"/>
+			<parameter id="n122"  value="5.000000"/>
+			<parameter id="n125"  value="2.000000"/>
+			<parameter id="n128"  value="6.000000"/>
+			<parameter id="lambda30"  value="0.014873"/>
+			<parameter id="lambda33"  value="0.017599"/>
+			<parameter id="lambda36"  value="0.013678"/>
+			<parameter id="lambda39"  value="0.018751"/>
+			<parameter id="lambda42"  value="10.799167"/>
+			<parameter id="lambda45"  value="87.038093"/>
+			<parameter id="lambda48"  value="71.112666"/>
+			<parameter id="lambda51"  value="0.010983"/>
+			<parameter id="lambda54"  value="31.674274"/>
+			<parameter id="lambda57"  value="0.011060"/>
+			<parameter id="lambda60"  value="2.259058"/>
+			<parameter id="lambda63"  value="0.037221"/>
+			<parameter id="lambda66"  value="99.072964"/>
+			<parameter id="lambda69"  value="68.075181"/>
+			<parameter id="lambda72"  value="4.132053"/>
+			<parameter id="lambda75"  value="6.042558"/>
+			<parameter id="lambda78"  value="21.734110"/>
+			<parameter id="lambda81"  value="69.774611"/>
+			<parameter id="lambda84"  value="40.676629"/>
+			<parameter id="lambda87"  value="0.010915"/>
+			<parameter id="lambda90"  value="0.425727"/>
+			<parameter id="lambda93"  value="9.373869"/>
+			<parameter id="lambda96"  value="78.266441"/>
+			<parameter id="lambda99"  value="39.184628"/>
+			<parameter id="lambda102"  value="90.915364"/>
+			<parameter id="lambda105"  value="41.791795"/>
+			<parameter id="lambda108"  value="5.182256"/>
+			<parameter id="lambda111"  value="74.626154"/>
+			<parameter id="lambda114"  value="30.369670"/>
+			<parameter id="lambda117"  value="9.288662"/>
+			<parameter id="lambda120"  value="22.800512"/>
+			<parameter id="lambda123"  value="67.255710"/>
+			<parameter id="lambda126"  value="77.417541"/>
+			<parameter id="lambda129"  value="0.014320"/>
+		</listOfParameters>
+		<listOfReactions>
+			<reaction id="eq_1">
+				<listOfProducts>
+					<speciesReference species="x0" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g0</ci>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x9</ci>
+									<ci>T46</ci>
+									<ci>lambda48</ci>
+									<ci>n47</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x11</ci>
+									<ci>T61</ci>
+									<ci>lambda63</ci>
+									<ci>n62</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x8</ci>
+									<ci>T76</ci>
+									<ci>lambda78</ci>
+									<ci>n77</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x13</ci>
+									<ci>T82</ci>
+									<ci>lambda84</ci>
+									<ci>n83</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x6</ci>
+										<ci>T85</ci>
+										<ci>lambda87</ci>
+										<ci>n86</ci>
+									</apply>
+									<ci>lambda87</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T88</ci>
+										<ci>lambda90</ci>
+										<ci>n89</ci>
+									</apply>
+									<ci>lambda90</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k0</ci>
+								<ci>x0</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_2">
+				<listOfProducts>
+					<speciesReference species="x1" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g1</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x12</ci>
+										<ci>T28</ci>
+										<ci>lambda30</ci>
+										<ci>n29</ci>
+									</apply>
+									<ci>lambda30</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x0</ci>
+									<ci>T34</ci>
+									<ci>lambda36</ci>
+									<ci>n35</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k1</ci>
+								<ci>x1</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_3">
+				<listOfProducts>
+					<speciesReference species="x2" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g2</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T106</ci>
+										<ci>lambda108</ci>
+										<ci>n107</ci>
+									</apply>
+									<ci>lambda108</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k2</ci>
+								<ci>x2</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_4">
+				<listOfProducts>
+					<speciesReference species="x3" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g3</ci>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x13</ci>
+									<ci>T79</ci>
+									<ci>lambda81</ci>
+									<ci>n80</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T100</ci>
+										<ci>lambda102</ci>
+										<ci>n101</ci>
+									</apply>
+									<ci>lambda102</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k3</ci>
+								<ci>x3</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_5">
+				<listOfProducts>
+					<speciesReference species="x4" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g4</ci>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x13</ci>
+									<ci>T94</ci>
+									<ci>lambda96</ci>
+									<ci>n95</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x3</ci>
+										<ci>T97</ci>
+										<ci>lambda99</ci>
+										<ci>n98</ci>
+									</apply>
+									<ci>lambda99</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x10</ci>
+										<ci>T115</ci>
+										<ci>lambda117</ci>
+										<ci>n116</ci>
+									</apply>
+									<ci>lambda117</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x6</ci>
+										<ci>T121</ci>
+										<ci>lambda123</ci>
+										<ci>n122</ci>
+									</apply>
+									<ci>lambda123</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k4</ci>
+								<ci>x4</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_6">
+				<listOfProducts>
+					<speciesReference species="x5" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g5</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T109</ci>
+										<ci>lambda111</ci>
+										<ci>n110</ci>
+									</apply>
+									<ci>lambda111</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k5</ci>
+								<ci>x5</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_7">
+				<listOfProducts>
+					<speciesReference species="x6" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g6</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x10</ci>
+										<ci>T118</ci>
+										<ci>lambda120</ci>
+										<ci>n119</ci>
+									</apply>
+									<ci>lambda120</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T124</ci>
+										<ci>lambda126</ci>
+										<ci>n125</ci>
+									</apply>
+									<ci>lambda126</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k6</ci>
+								<ci>x6</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_8">
+				<listOfProducts>
+					<speciesReference species="x7" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g7</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x1</ci>
+										<ci>T31</ci>
+										<ci>lambda33</ci>
+										<ci>n32</ci>
+									</apply>
+									<ci>lambda33</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k7</ci>
+								<ci>x7</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_9">
+				<listOfProducts>
+					<speciesReference species="x8" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g8</ci>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x9</ci>
+									<ci>T55</ci>
+									<ci>lambda57</ci>
+									<ci>n56</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x8</ci>
+									<ci>T58</ci>
+									<ci>lambda60</ci>
+									<ci>n59</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x11</ci>
+										<ci>T67</ci>
+										<ci>lambda69</ci>
+										<ci>n68</ci>
+									</apply>
+									<ci>lambda69</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k8</ci>
+								<ci>x8</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_10">
+				<listOfProducts>
+					<speciesReference species="x9" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g9</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x1</ci>
+										<ci>T40</ci>
+										<ci>lambda42</ci>
+										<ci>n41</ci>
+									</apply>
+									<ci>lambda42</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x9</ci>
+										<ci>T43</ci>
+										<ci>lambda45</ci>
+										<ci>n44</ci>
+									</apply>
+									<ci>lambda45</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x11</ci>
+										<ci>T49</ci>
+										<ci>lambda51</ci>
+										<ci>n50</ci>
+									</apply>
+									<ci>lambda51</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k9</ci>
+								<ci>x9</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_11">
+				<listOfProducts>
+					<speciesReference species="x10" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g10</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x2</ci>
+										<ci>T103</ci>
+										<ci>lambda105</ci>
+										<ci>n104</ci>
+									</apply>
+									<ci>lambda105</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x5</ci>
+										<ci>T112</ci>
+										<ci>lambda114</ci>
+										<ci>n113</ci>
+									</apply>
+									<ci>lambda114</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x4</ci>
+										<ci>T127</ci>
+										<ci>lambda129</ci>
+										<ci>n128</ci>
+									</apply>
+									<ci>lambda129</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k10</ci>
+								<ci>x10</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_12">
+				<listOfProducts>
+					<speciesReference species="x11" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g11</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x7</ci>
+										<ci>T37</ci>
+										<ci>lambda39</ci>
+										<ci>n38</ci>
+									</apply>
+									<ci>lambda39</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x9</ci>
+										<ci>T52</ci>
+										<ci>lambda54</ci>
+										<ci>n53</ci>
+									</apply>
+									<ci>lambda54</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x8</ci>
+										<ci>T64</ci>
+										<ci>lambda66</ci>
+										<ci>n65</ci>
+									</apply>
+									<ci>lambda66</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k11</ci>
+								<ci>x11</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_13">
+				<listOfProducts>
+					<speciesReference species="x12" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g12</ci>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k12</ci>
+								<ci>x12</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction id="eq_14">
+				<listOfProducts>
+					<speciesReference species="x13" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<minus/>
+							<apply>
+								<times/>
+								<ci>g13</ci>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x11</ci>
+										<ci>T70</ci>
+										<ci>lambda72</ci>
+										<ci>n71</ci>
+									</apply>
+									<ci>lambda72</ci>
+								</apply>
+								<apply>
+									<divide/>
+									<apply>
+										<ci>hillfunction</ci>
+										<ci>x8</ci>
+										<ci>T73</ci>
+										<ci>lambda75</ci>
+										<ci>n74</ci>
+									</apply>
+									<ci>lambda75</ci>
+								</apply>
+								<apply>
+									<ci>hillfunction</ci>
+									<ci>x4</ci>
+									<ci>T91</ci>
+									<ci>lambda93</ci>
+									<ci>n92</ci>
+								</apply>
+							</apply>
+							<apply>
+							<times/>
+								<ci>k13</ci>
+								<ci>x13</ci>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+		</listOfReactions>
+	</model>
+</sbml>

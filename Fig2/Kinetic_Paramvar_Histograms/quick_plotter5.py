@@ -14,8 +14,18 @@ sys.path.append('../')
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles5/") if isfile(join("topofiles5/", f))]
 topofiles.sort()
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
-
-
+fsize = 20
+def rankcalc(coords, valarr, names):
+    n = len(valarr)
+    for i in range(len(coords)):
+        perc = 0
+        for j in range(len(valarr)):
+            if(valarr[j]>coords[i]):
+                perc+=1
+        perc = (np.round((perc/n)*1000))/1000
+        print(names[i], perc)
+        
+        
 plastarr =[]
 jsdarr =[]
 
@@ -60,7 +70,13 @@ valarr = plastarr
 coords = [0.836]
 names = ["OCT4"]
 colours = ['r']
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+error =[[0.88	,0.07]]
+fsize = 18
+
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'28'})
+
+
+histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error,fsize)  
 
 
 plt.xlabel("Avg. Fold Change in Plasticity\n(Dynamic)", fontweight="bold", c = '0.3')
@@ -72,12 +88,14 @@ fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)    
 plt.tight_layout()         
 plt.savefig("kineticplastavg{}hist.png".format(number), transparent = True)
-
+rankcalc(coords, valarr, names)
 
 
 #-----------------------------------------------------------------------------------------------------------------
-number = 5
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'30', 'ytick.labelsize':'30', 'legend.fontsize':'28'})
 
+number = 5
+fsize = 20
 n_bins  = 20  
 r = 2
 fig,ax = plt.subplots()
@@ -85,7 +103,9 @@ valarr = jsdarr
 coords = [0.0647804]
 names = ["OCT4"]
 colours = ['r']
-histarrows.histogram(ax, valarr, coords, names, colours, n_bins)   
+error =[[0.20,	0.01]]
+
+histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error,fsize)     
 
 plt.xlabel("Avg. Parameter Variation JSD", fontweight="bold", c = '0.3')
 plt.ylabel("No. of Random Networks", fontweight="bold", c = '0.3')
@@ -96,7 +116,7 @@ fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(f)    
 plt.tight_layout()        
 plt.savefig("kineticjsdavg{}hist.png".format(number), transparent = True)
-
+rankcalc(coords, valarr, names)
 
 
 
