@@ -25,6 +25,15 @@ print(topofiles)
 version='cont' # bool / cont
 Version = version
 
+versioncsb = 0
+
+if(version == 'cont'):
+    versioncsb = 'CSB'
+else:
+    versioncsb = 'Bool'
+
+
+
 def FixCase(st):
     return ' '.join(''.join([w[0].upper(), w[1:].lower()]) for w in st.split())
 
@@ -64,7 +73,7 @@ for i in range(0, len(topofiles)):
     
     seagraph = sns.regplot(booljsd,racjsd, color ='blue')
     
-    xlabel1 = "Perturbation JSD ({})".format(FixCase(Version))
+    xlabel1 = "Perturbation JSD ({})".format(versioncsb)
     ylabel1= "Perturbation JSD (RACIPE)"
     #title1 = "{}   ρ= {:.3f}   Residual = {:.3f} ".format(topofiles[i],corr, res[0])
     if(topofiles[i] != 'OVOL2'):

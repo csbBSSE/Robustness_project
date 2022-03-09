@@ -72,7 +72,7 @@ for nn in topofiles:
     plt.xlabel("Multiplication factor for maximum range\n({})".format(nn), fontsize=15*r,  fontweight = "bold", c='0.3')
     plt.ylabel("JSD from WT", fontsize=15*r, fontweight = "bold", c='0.3')
     #plt.title("{}\n\n\n".format(nn), fontweight = "bold", c='0.3')
-    plt.ylim([0, 0.5])
+ 
     
     if(nn!= 'NRF2'):
         legend = plt.legend(legendarr, frameon = False)
