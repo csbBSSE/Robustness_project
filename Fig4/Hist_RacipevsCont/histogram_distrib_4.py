@@ -54,7 +54,7 @@ fig,ax = plt.subplots()
 valarr = jsdarr
 names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
-error  = [[0.92,	0.01],	[0.72	,0.03],[0.87	,0.01],	[0.96,	0.02]]
+error  = [[0.08,	0.01],	[0.28	,0.03],[0.13	,0.01],	[0.04,	0.02]]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("JSD b/w RACIPE and Cont.", fontweight="bold", c = '0.3')
