@@ -1,0 +1,15 @@
+Source Target Type
+A F 1
+B A 2
+B C 2
+B F 1
+C D 2
+C E 1
+C F 2
+D A 2
+D D 1
+E B 2
+E C 2
+F C 1
+F D 2
+F E 2
