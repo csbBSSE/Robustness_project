@@ -13,8 +13,8 @@ from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
 import histarrows as histarrows
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
-
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'28', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
+plt.rcParams['figure.dpi'] = 500
 
 number = 4
 n_bins = 20
@@ -48,7 +48,7 @@ valarr = avgarr
 names = ["GRHL2" , "GRHL2wa", "OVOL", "OVOLsi"]
 colours = ['r', 'g', 'm', 'k']
 coords = [0.21342106249999998, 0.201548, 0.228, 0.215358625]   
-error = [[0.83,	0.04],	[0.93,	0.03]	,[0.65	,0.05]	,[0.79,	0.04]]
+error = [[0.17,	0.04],	[0.07,	0.03]	,[0.35	,0.05]	,[0.21,	0.04]]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("Average Perturbation JSD", fontweight="bold", c = '0.3')

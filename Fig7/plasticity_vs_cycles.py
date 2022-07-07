@@ -3,6 +3,7 @@ import time
 from os import listdir
 from os.path import splitext, isfile, join
 import networkx as nx
+import math
 import numpy as np
 import initialise.initialise as initialise
 import initialise.parser as parser
@@ -13,6 +14,7 @@ import matplotlib
 from scipy.stats import pearsonr
 from scipy.spatial.distance import jensenshannon
 from copy import copy
+import matplotlib.colors as colors
 from scipy.optimize import curve_fit
 print('imported modules')
 
@@ -72,7 +74,7 @@ def fit_frac(x_arr,y_arr, target_arr):
   z_arr = func_frac_output( (x_arr, y_arr) , popt[0], popt[1] , popt[2])
   return z_arr , popt
 '''
-
+'''
 def func_diff(X, a , b , c):    #custom function for difference in cycles
     x,y = X
     z = np.zeros(len(x))
@@ -97,6 +99,13 @@ def fit_diff(x_arr,y_arr, target_arr):
   z_arr = func_diff_output( (x_arr, y_arr) , popt[0], popt[1] , popt[2])
 
   return z_arr , popt
+'''
+
+def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
+    new_cmap = colors.LinearSegmentedColormap.from_list(
+        'trunc({n},{a:.2f},{b:.2f})'.format(n=cmap.name, a=minval, b=maxval),
+        cmap(np.linspace(minval, maxval, n)))
+    return new_cmap
 
 
 #matplotlib parameters
@@ -126,7 +135,11 @@ for i in range(len(topofiles)):
     #creating a node to id dictionary
     id_dict = dict(zip(node_names, node_id))
     import matplotlib as mpl
-    mpl.rc('image', cmap='winter')
+    
+    cmap = plt.get_cmap('gray')    
+    new_cmap = truncate_colormap(cmap, 0, 0.6)
+    mpl.rc('image', cmap= new_cmap)
+
     print(id_dict)
     link_matrix = metric.matrix(topofiles[i])
     copy_link_matrix = link_matrix.copy()
@@ -147,10 +160,13 @@ for i in range(len(topofiles)):
    
     orig_pos = np.array([cycle_info[0]]*l)
     orig_neg = np.array([cycle_info[1]]*l)
+    orig_fwpc = np.array([cycle_info[3]]*l)
+    
     orig_weight_pos = np.array([cycle_info[5]]*l)
     orig_weight_neg = np.array([cycle_info[4]] *l  )
         
     new_pos =[]
+    new_fwpc =[]
     new_weight_pos = []
     new_weight_neg = []
     plastarr = []
@@ -196,39 +212,30 @@ for i in range(len(topofiles)):
 
         colorarr.append(cycle_info[1])
         new_pos.append(cycle_info[0])
-        new_weight_pos.append(cycle_info[5])
-        new_weight_neg.append(cycle_info[4])
+        
+        new_fwpc.append(cycle_info[3])
         
         plastarr.append(plastval)
-        print(cycle_info[0] , cycle_info[5] , plastval)
+        print(cycle_info[0] , cycle_info[3] , plastval)
         link_matrix[n1][n2] = copy_link_matrix[n1][n2]
     
     
     new_pos1 = new_pos - orig_pos    
-
+    new_fwpc1 = new_fwpc - orig_fwpc 
     #optimising weights
     #temp_frac_weight_loops , popt_frac = fit_frac(new_weight_pos,new_weight_neg, plastarr)
-    temp_diff_weight_loops , popt_diff = fit_diff(new_weight_pos,new_weight_neg, plastarr)
-    corr, _ = pearsonr(new_pos1, plastarr)
-    print(corr)
-    corr, _ = pearsonr(new_weight_pos, plastarr)
-    print(corr)
-    corr, _ = pearsonr(new_weight_neg, plastarr)
-    print(corr)    
+
     
-    
-    frac_weight_loops = func_frac_output( (new_weight_pos, new_weight_neg) , popt_diff[0], popt_diff[1] , popt_diff[2])- func_frac_output( (orig_weight_pos, orig_weight_neg) , popt_diff[0], popt_diff[1] , popt_diff[2])
-    diff_weight_loops = temp_diff_weight_loops - func_diff_output( (orig_weight_pos, orig_weight_neg) , popt_diff[0], popt_diff[1] , popt_diff[2])
-    
-    print(frac_weight_loops)
-    print("     ")
-    print(diff_weight_loops)
-    print("     ")
-    print(popt_diff)
+
     #plotting vs diff in positive feedback loops 
     r = 2
     fig = plt.figure()
-    plt.scatter(new_pos1 , plastarr , c= colorarr, s = 50)
+    if(network_name== "EMT_RACIPE"):
+        plt.scatter(new_pos1 , plastarr , c= colorarr, s = np.power((np.array(colorarr) + 300)/10 , 1.2 ))
+    else:
+        plt.scatter(new_pos1 , plastarr , c= colorarr, s = np.power((np.array(colorarr) + 2100)/70 , 1.2 ))
+    
+    
     plt.colorbar()
     
     corr, significance= pearsonr(new_pos1, plastarr)
@@ -244,21 +251,21 @@ for i in range(len(topofiles)):
     plt.savefig("just_pos_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()
     
-    #plotting vs diff in weighted feedback loops    
+    #plotting vs diff in fwpc
     r = 2
     fig = plt.figure()
-    plt.scatter(diff_weight_loops, plastarr , c= colorarr, s = 50)
+    plt.scatter(new_fwpc1, plastarr , c= colorarr, s = 70)
     plt.colorbar()   
-    corr, significance = pearsonr(diff_weight_loops, plastarr)    
+    corr, significance = pearsonr(new_fwpc1, plastarr)    
     
-    plt.xlabel("Δ WFLs")
+    plt.xlabel("Δ FWPC")
     plt.ylabel("Perturbed Plasticity")
     plt.title("{}  ρ = {:.3f}{}".format(network_name,corr, starfunc(significance)))
     f=r*np.array(plt.rcParams["figure.figsize"])
     fig = matplotlib.pyplot.gcf()
     fig.set_size_inches(f)          
      
-    plt.savefig("diff_weight_loops_{}.png".format(topofiles[i]) , transparent =True)
+    plt.savefig("diff_weight_frac_{}.png".format(topofiles[i]) , transparent =True)
     plt.clf()     
     
 

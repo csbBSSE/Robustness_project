@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib
  
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'50', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'33'})
- 
+plt.rcParams['figure.dpi'] = 500
+#hatches = ['/', '\\', '|', '-', '+', 'x', 'o', 'O', '.', '*']
 
 xarrno = np.array([0,1,2,3,4])
 
@@ -28,15 +29,15 @@ yarr42=[
 r = 2
 fig = plt.figure()
 
-plt.bar(xarrno,yarr41, width = 0.4 ,color='r')
+plt.bar(xarrno,yarr41, width = 0.4 ,color='r' , hatch = 'o' , edgecolor = 'k', linewidth= 2)
 plt.xticks(xarrno + 0.2 , xarr4 , fontweight="bold" , c='0.3' )
-plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
+plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b', hatch = 'x' , edgecolor = 'k',  linewidth = 2)
 plt.xticks(rotation=15)
 plt.ylabel("JSD Correlation with Racipe", fontweight="bold" , c='0.3' )
 #plt.xlabel("Networks" ,fontweight="bold" , c='0.3' )
 #plt.title("Boolean vs Cont. Correlation with Racipe")
 
-legend = plt.legend(['Boolean', 'Continuous'] )
+legend = plt.legend(['Boolean', 'CSB'] )
 plt.setp(legend.get_texts(), color='0.3', fontweight="bold" )
 
 plt.tick_params(
@@ -82,15 +83,15 @@ r = 2
 fig = plt.figure()
 
 
-plt.bar(xarrno,yarr41, width = 0.4 ,color='r')
+plt.bar(xarrno,yarr41, width = 0.4 ,color='r', hatch = 'o' , edgecolor = 'k', linewidth= 2)
 plt.xticks(xarrno + 0.2 , xarr4,  fontweight="bold" , c='0.3')
-plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b')
+plt.bar(xarrno+0.4,yarr42, width = 0.4, color='b', hatch = 'x' , edgecolor = 'k', linewidth= 2)
 
 plt.ylabel("JSD from RACIPE",  fontweight="bold" , c='0.3')
 #plt.xlabel("Networks", fontweight="bold" , c='0.3')
 plt.xticks(rotation=15)
 #plt.title("Boolean vs Cont. JSD")
-legend = plt.legend(['Boolean', 'Continuous'] , loc='best' )
+legend = plt.legend(['Boolean', 'CSB'] , loc='best' )
 plt.setp(legend.get_texts(), color='0.3', fontweight="bold")
 
 plt.tick_params(

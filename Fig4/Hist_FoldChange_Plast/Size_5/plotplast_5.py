@@ -36,6 +36,7 @@ plast=np.loadtxt("plastnetwork.txt")
 
 
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
+plt.rcParams['figure.dpi'] = 500
 number = 5
 n_bins  = 20  
 r = 2
@@ -45,7 +46,7 @@ valarr = plast
 names = ["OCT4"]
 colours = ['r']
 coords = [0.86]
-error = [[0.22,0.06]]
+error = [[0.78,0.06]]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("Avg. fold change in Plasticity", fontweight="bold" , c='0.3')
@@ -59,7 +60,7 @@ fig.set_size_inches(f)
 ax.set_ylim([0,42])
 plt.tight_layout()
 print("i")
-plt.savefig("plastfoldhist5.jpg", transparent = True)
+plt.savefig("plastfoldhist5.png", transparent = True)
 
 
 plt.clf()

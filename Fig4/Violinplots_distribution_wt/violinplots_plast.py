@@ -11,7 +11,7 @@ min_fold = []
 max_fold = []
 mean_fold = []
 grhl2_fold = []
-
+plt.rcParams['figure.dpi'] = 500
 
 def set_axis_style(ax, labels):
     ax.xaxis.set_tick_params(direction='out')
