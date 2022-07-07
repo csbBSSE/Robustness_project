@@ -15,7 +15,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-
+plt.rcParams['figure.dpi'] = 500
 topofiles= [os.path.splitext(f)[0] for f in listdir("topofilesisingcnt/") if isfile(join("topofilesisingcnt/", f))]
 jsdising =[]
 jsdcnt2 =[]

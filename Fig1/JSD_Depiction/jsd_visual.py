@@ -2,6 +2,7 @@ from scipy.spatial.distance import jensenshannon
 from scipy.stats import norm
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcParams['figure.dpi'] = 500
 size = 1000
 stdev = 0.3
 a = np.random.normal(-1, stdev, size)
@@ -22,7 +23,7 @@ ax1.set_yticks([])
 #plt.clf()
 
 ax2.plot(x1, norm.pdf(x1, -1, stdev), c = 'r', linewidth = 5)
-ax2.plot(x1, norm.pdf(x1, -1.02, stdev), c = 'b', linewidth = 5)
+ax2.plot(x1, norm.pdf(x1, -1.08, stdev), c = 'b', linewidth = 5)
 ax2.set_ylim([0.01,1.5])
 ax2.set_xlim([-2,0])
 ax2.set_xticks([])

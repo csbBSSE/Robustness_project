@@ -16,7 +16,29 @@ import seaborn as sns
 from matplotlib.lines import Line2D
 import matplotlib.patches as mpatches
 colorarr = []
+plt.rcParams['figure.dpi'] = 500
 col = ['r' , 'g', 'm', 'k' ,'c', 'y', 'C1' ]
+
+shapedict =	{
+  "GRHL2": "D",
+  "GRHL2wa": "X",
+  "OVOL": "^",
+  "OVOLsi": "s",
+  "OCT4": "*",
+  "NRF2": "P"
+}
+
+shapesizedict =	{
+  "D": 20,
+  "X": 23,
+  "^": 22,
+  "s": 20,
+  "*": 29,
+  "P": 25
+}
+
+
+
 coldict =	{
   "GRHL2": 'r',
   "GRHL2wa": 'g',
@@ -270,7 +292,7 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
         if(x_label == "Fraction of Weighted Positive Cycles"):
             weightarrpjsd.append(weight)
             
-    if (y_label == "RACIPE vs Cont. (JSD)" and x_label!=  "No. of FLs"):
+    if (y_label == "RACIPE vs CSB (JSD)" and x_label!=  "No. of FLs"):
 
         corrarrdjsd.append(np.round(pcorr*10000)/10000)  
         if(x_label == "Fraction of Weighted Positive Cycles"):
@@ -298,12 +320,16 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
            x_arr1.append(x_arr[count])
            y_arr1.append(y_arr[count])
            #print("labels",labels)
-           test.append(Line2D([], [], color= coldict[topofiles[count]], marker='X',
-                          markersize=20, label= labels[count],linestyle='None'))
+           #test.append(Line2D([], [], color= coldict[topofiles[count]], marker=shapedict[topofiles[count]],
+           #               markersize=20, label= labels[count],linestyle='None'))
            count+=1
         for k in range(len(x_arr1)):
-            plt.plot( x_arr1[k], y_arr1[k] , c =  coldict[labels[k]] , marker = 'X',  markersize = 20 , linestyle = 'None')    
+            #coldict[labels[k]]
+            if(size == -1 and ((x_label == 'No. of PFLs' and y_label == "Avg. Fold Change in Plasticity\n(Structural)") or (y_label == 'Avg. Perturbation JSD' and (x_label == 'No. of PFLs' or x_label == 'No. of NFLs')))):
             
+                plt.plot( x_arr1[k], y_arr1[k] , c =  'k' , marker = shapedict[labels[k]],  markersize = 0.3 * shapesizedict[shapedict[labels[k]]] , linestyle = 'None')    
+            else:         
+                plt.plot( x_arr1[k], y_arr1[k] , c =  'k' , marker = shapedict[labels[k]],  markersize = shapesizedict[shapedict[labels[k]]] , linestyle = 'None')   
     # print(pcorr)
     #plt.title(title + "    ρ = {:.3f}".format(pcorr), fontweight="bold", c = '0.3
     #leg1 = ax.legend(handles = test, prop={'size': 25})
@@ -318,7 +344,8 @@ def plotter(topofiles, x_arr, y_arr, x_label, y_label, dir, name, size):
     plt.close()
 
 def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr):
-    size_arr = [4, 5, 6, 7, 8, 9, 10 , -1]
+    size_arr = [-1, 4, 5, 6, 7, 8, 9, 10 ]
+    #size_arr = [-1]
     for size in size_arr:
         topofiles = topofiles_size(topofiles_all, size)
 
@@ -350,7 +377,7 @@ def plotterscript(topofiles_all, db_emp, db_met, x_label_arr, y_label_arr, dir_a
                     plotter(topofile_input, x_arr, y_arr, x_label_arr[met_index], y_label_arr[emp_index], dir_arr[emp_index], name, size)                   
 
 x_label_arr = ["No. of PFLs", "No. of NFLs", "No. of FLs" ,"Fraction of Positive Cycles", "Fraction of Weighted Positive Cycles"]
-y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
+y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs CSB (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
 dir_arr = ["pjsd", "fchg", "djsd", "dplast"]
 met_arr = ["npos", "nneg", "totfl", "fracpos" ,"wfracloops"]
 plotterscript(topofiles, db_emp, db_met, x_label_arr, y_label_arr, dir_arr, met_arr)
@@ -428,13 +455,14 @@ def lineplotter(data,y_label):
     for j in range(4,4+l1):
         x1.append(j)
     
-    plt.plot(x1, data1[0][:-1] ,  marker='o' , linewidth = 4)
-    plt.plot(x1, data1[1][:-1] ,  marker="o", linewidth = 4)
-    plt.plot(x1, data1[2][:-1] , marker = "o", linewidth = 4)
-    plt.plot(x1, data1[3][:-1] , marker = "o", linewidth = 4)
+    mark_arr = ["D", "X", "^", "s"]
+    line_arr = ['solid' , 'dashed', 'dashdot', 'dotted']
+    for j in range(4):
+        plt.plot(x1, data1[j][:-1] ,  marker= mark_arr[j] , markersize = shapesizedict[mark_arr[j]] ,  linewidth = 4 , linestyle = line_arr[j])
+
     arrcol =  ['C0','C1','C2','C3']
     for j in range(4):
-        plt.plot( 4+l1, data1[j][-1] , marker = 'X', markersize = 20, c = arrcol[j] ,linestyle = 'None' )
+        plt.plot( 4+l1, data1[j][-1] , marker= mark_arr[j] , markersize = shapesizedict[mark_arr[j]], c = arrcol[j] ,linestyle = 'None' )
     x2 = copy.deepcopy(x1)
     #x2.insert(0,"0")
     x2.append("All")
@@ -460,7 +488,7 @@ def lineplotter(data,y_label):
     
 lineplotter(corrarrpjsd,"Avg. Perturbation JSD")
 lineplotter(corrarrpplast,"Avg. Fold Change in Plasticity\n(Structural)")
-lineplotter(corrarrdjsd,"RACIPE vs Cont. (JSD)")
+lineplotter(corrarrdjsd,"RACIPE vs CSB (JSD)")
 lineplotter(corrarrdplast,"Avg. Fold Change in Plasticity\n(Dynamic)")
 
 np.savetxt("weightpjsd.txt" , weightarrpjsd , fmt='%1.3f')

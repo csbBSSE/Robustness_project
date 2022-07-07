@@ -14,7 +14,7 @@ from matplotlib.ticker import PercentFormatter
 import histarrows as histarrows
 
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'40', 'axes.labelsize':'35', 'xtick.labelsize':'33', 'ytick.labelsize':'30', 'legend.fontsize':'30'})
-
+plt.rcParams['figure.dpi'] = 500
 
 number = 5
 n_bins = 20
@@ -47,7 +47,7 @@ valarr = avgarr
 names = ["OCT4"]
 colours = ['r']
 coords = [0.2]   
-error = [[0.99	,0.01]]
+error = [[0.01	,0.01]]
 histarrows.histogram(ax, valarr, coords, names, colours, n_bins, error)   
 
 plt.xlabel("Avg. Perturbation JSD", fontweight="bold", c = '0.3')

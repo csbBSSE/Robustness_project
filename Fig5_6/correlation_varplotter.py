@@ -22,11 +22,14 @@ import warnings
 import copy
  
 matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '30', 'axes.titlesize':'30', 'axes.labelsize':'30', 'xtick.labelsize':'25', 'ytick.labelsize':'25', 'legend.fontsize':'25'})
-
+plt.rcParams['figure.dpi'] = 500
 
 y_label_arr = ["Avg. Perturbation JSD", "Avg. Fold Change in Plasticity\n(Structural)", "RACIPE vs Cont. (JSD)", "Avg. Fold Change in Plasticity\n(Dynamic)"]
 
 y_leg_arr = ["pJSD", "pPLast", "dJSD", "dPlast"]
+
+line_arr = ['solid' , 'dashed', 'dashdot', 'dotted']
+
 size = 4
 r=2
 data  = [0,0,0,0]
@@ -39,9 +42,9 @@ for i in range(len(y_label_arr)):
 
 fig,ax = plt.subplots()
 for i in range(4):
-    plt.plot(data[i][0], data[i][1] , linewidth = 4)
+    plt.plot(data[i][0], data[i][1] , linewidth = 4 , linestyle = line_arr[i])
     
-plt.xlabel("Weight for PFLs")
+plt.xlabel("Weight for WPFLs")
 plt.ylabel("Absolute Correlation")
 plt.title("Size 4" , x=0.5, y=0.93)
 min1 = ax.get_ylim()
@@ -81,7 +84,7 @@ for i in range(len(y_label_arr)):
     for j in range(0,l+1):
         plt.plot(data[j][0], data[j][1] , linewidth = 4)
     
-    plt.xlabel("Weight for PFLs")
+    plt.xlabel("Weight for WPFLs")
     plt.ylabel("Absolute Correlation")
     plt.title("{}".format(y_leg_arr[i]) , x=0.5, y=0.93)
     ymax = 0

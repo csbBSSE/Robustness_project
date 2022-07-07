@@ -12,8 +12,8 @@ topofiles= [os.path.splitext(f)[0] for f in listdir("topofiles/") if isfile(join
 topofiles.sort()
 
 
-matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'20', 'axes.labelsize':'20', 'xtick.labelsize':'20', 'ytick.labelsize':'20', 'legend.fontsize':'15'})
-
+matplotlib.rcParams.update({'font.weight':'bold', 'xtick.color':'0.3', 'ytick.color':'0.3', 'axes.labelweight':'bold', 'axes.titleweight':'bold', 'figure.titleweight':'bold', 'text.color':'0.3', 'axes.labelcolor':'0.3', 'axes.titlecolor':'0.3', 'font.size': '25', 'axes.titlesize':'20', 'axes.labelsize':'20', 'xtick.labelsize':'20', 'ytick.labelsize':'15', 'legend.fontsize':'15'})
+plt.rcParams['figure.dpi'] = 500
 
 colorarr = []
 c = ['r' , 'b', 'g', 'm']
@@ -49,24 +49,34 @@ for i in range(len(topofiles)):
 
     
     arr2 = [1,2,3,4]
-    plt.bar(arr2, meanarr, color=['r', 'b', 'g', 'm'])
-    bars = plt.bar(arr2, meanarr, color=['r', 'b', 'g', 'm'])
-    plt.errorbar(arr2 , meanarr , yerr = stdarr, fmt = 'o', markersize = 0, barsabove = True, capsize = 15,elinewidth=5, color = 'k')
-    plt.legend(handles=colorarr)
+    colorarr=['r', 'b', 'g', 'm'] 
+    hatcharr= ['oo', 'xx', '**', '++'] 
+    bars = []    
+    for j in range(4):
+        bar1 = plt.bar(arr2[j], meanarr[j], color= colorarr[j] ,hatch = hatcharr[j], linewidth = 2)
+        bars.append(bar1)
+        plt.errorbar(arr2[j] , meanarr[j] , yerr = stdarr[j], fmt = 'o', markersize = 0, barsabove = True, capsize = 15,elinewidth=5, mew=3, color = 'k', label = '_nolegend_')
+        
+
     plt.xticks(arr2 )
     plt.title("{}".format(topofiles[i]))
     plt.ylabel("Fraction of\nparameter sets")
 	
     
     count = 0
-    for bar in bars:
+    for bar2 in bars:
+        bar = bar2[0]
         height = bar.get_height()
         yval = np.round(meanarr[count]*1000)/1000    
         plt.text((2*bar.get_x()+  bar.get_width() )/2, yval + .01, "{:.1f}%".format(yval*100), ha='center', va='bottom', fontsize = 15) 
         count+=1    
     plt.ylim([0,max(meanarr)+0.1])
+
+    legend = plt.legend(labels, markerscale = 0.5)   
+ 
+  
+    
     plt.tight_layout()
-    plt.savefig("stabplot/{}_stabplot.png".format(topofiles[i]))
+    plt.savefig("stabplot/{}_stabplot.png".format(topofiles[i]), transparent = True)
     
     plt.clf()
-
