@@ -98,15 +98,16 @@ def lineplotter(net_name):
     x_arr_str = [str(i) for i in range(len(dn_pjsd_mean))]
     plt.xticks(x_arr,x_arr_str)
     x_arr = np.array(x_arr)
-    #plt.plot(x_arr, dn_pjsd_mean, color='b' , linestyle = 'solid' , linewidth = 4)
+    plt.plot(x_arr, dn_pjsd_mean, color='b' , linestyle = 'solid' , linewidth = 4)
     #plt.errorbar(x_arr,dn_pjsd_mean, dn_pjsd_err, ecolor='k', elinewidth = 4 , capsize = 12)
-    plt.errorbar(x_arr, dn_pjsd_mean, dn_pjsd_err, color='b' , linestyle = 'solid' , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16)
+    plt.errorbar(x_arr, dn_pjsd_mean, dn_pjsd_err, color='b' , linestyle = 'solid' , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16 , label = '_nolegend_')
     
     x_arr = [i for i in range(len(up_pjsd_mean))]
     x_arr_str = [str(i) for i in range(len(up_pjsd_mean))]
     plt.xticks(x_arr,x_arr_str)
     x_arr = np.array(x_arr)
-    plt.errorbar(x_arr, up_pjsd_mean,up_pjsd_err, color='g' , linestyle = 'dashed' , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16)
+    plt.plot(x_arr, up_pjsd_mean, color='g' , linestyle = 'dashed' , linewidth = 4)
+    plt.errorbar(x_arr, up_pjsd_mean,up_pjsd_err, color='g' , linestyle = 'dashed' , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16, label = '_nolegend_')
 
     
     plt.legend(['Increase FWPC', 'Decrease FWPC'])
@@ -153,14 +154,15 @@ def lineplotter2(fig,ax,net_name, c1,lstyle):
     x_arr_str = [str(i) for i in range(len(dn_pjsd_mean))]
     plt.xticks(x_arr,x_arr_str)
     x_arr = np.array(x_arr)
-    #plt.plot(x_arr, dn_pjsd_mean, color='b' , linestyle = 'solid' , linewidth = 4)
+    plt.plot(x_arr, dn_pjsd_mean, color=c1 ,linestyle = lstyle , linewidth = 4)
     #plt.errorbar(x_arr,dn_pjsd_mean, dn_pjsd_err, ecolor='k', elinewidth = 4 , capsize = 12)
-    plt.errorbar(x_arr, dn_pjsd_mean, dn_pjsd_err, color=c1 , linestyle = lstyle , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16)
+    plt.errorbar(x_arr, dn_pjsd_mean, dn_pjsd_err, color=c1 , linestyle = lstyle , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16, label='_nolegend_')
     
     x_arr = [i for i in range(len(up_pjsd_mean))]
     x_arr_str = [str(i) for i in range(len(up_pjsd_mean))]
     plt.xticks(x_arr,x_arr_str)
     x_arr = np.array(x_arr)
+    plt.plot(x_arr, up_pjsd_mean, color=c1 ,linestyle = lstyle , linewidth = 4, label='_nolegend_')
     plt.errorbar(x_arr, up_pjsd_mean, up_pjsd_err, color=c1 , linestyle = lstyle , linewidth = 4, ecolor='k', elinewidth = 4, capsize = 16, label='_nolegend_')
     
     
@@ -187,10 +189,19 @@ def lineplotter3(fig,ax,net_name, c1,lstyle):
 fig,ax = plt.subplots()    
 cols = ['r', 'b', 'g']
 styles = ['solid', 'dashed', 'dotted']
+
+
 for i in range(2,5):
     lineplotter3(fig, ax, "randomnet8_{}".format(i) + "_fix", cols[i-2] , styles[i-2])
 
-plt.legend( ['randomnet8_2'  , 'randomnet8_3'  ,'randomnet8_4'     ])
+plt.legend(['randomnet8_2'  , 'randomnet8_3'  ,'randomnet8_4'     ])
+
+#handles, labels = ax.get_legend_handles_labels()
+
+# remove the errorbars
+#handles = [h[0] for h in handles]
+#ax.legend(handles, labels)
+
 r = 2
     
 f=r*np.array(plt.rcParams["figure.figsize"])
@@ -218,6 +229,8 @@ for i in range(2,5):
     lineplotter2(fig, ax, "randomnet8_{}".format(i) + "_fix", cols[i-2] , styles[i-2])
 
 plt.legend( ['randomnet8_2'  , 'randomnet8_3'  ,'randomnet8_4'     ])
+
+
 r = 2
     
 f=r*np.array(plt.rcParams["figure.figsize"])

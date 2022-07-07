@@ -84,7 +84,7 @@ r = 2
 fig,ax = plt.subplots()
 ax = seaborn.violinplot( data = data_matrix ,inner=None , bw = 0.7, cut=0 ,palette=['r','b','r','b'] , linewidth = 4)
 
-hatch = ['*','xx','o','xx']
+hatch = ['*','x','*','x']
 ihatch = iter(hatch)
 _ = [i.set_hatch(next(ihatch)) for i in ax.get_children() if isinstance(i, mpl.collections.PolyCollection)]
 ax.set_xticklabels(labels,fontsize = 25)
